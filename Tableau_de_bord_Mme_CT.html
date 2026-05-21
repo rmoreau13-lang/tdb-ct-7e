@@ -1,15 +1,16 @@
 <!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
 {
-  "name": "Tableau Bord Tardieu",
+  "name": "Tableau Bord C.T.",
   "schemaVersion": 1,
-  "description": "Tableau de bord vivant de la recherche d'appartement de Corinne Tardieu (T3/T4/T5, secteur Cercle des Nageurs, Marseille 7e, source Jinka). 7 annonces, 5 dans le périmètre ≤1000m. Carte OpenStreetMap interactive maison (tuiles OSM en direct + plan de situation de repli, drag+zoom), critères parking/terrasse/ascenseur, filtres, liens cliquables. Bouton \"Mettre à jour\" qui déclenche le re-scan Jinka via la tâche planifiée maj-tableau-bord-tardieu."
+  "description": "Tableau de bord de recherche appartement T3 T4 T5, secteur Cercle des Nageurs, Marseille 7e. Annonces, carte interactive, criteres parking terrasse ascenseur, filtres et liens. Version cliente figee."
 }
 </script>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tableau de bord — Recherche appartement Corinne TARDIEU</title>
+<meta name="robots" content="noindex,nofollow">
+<title>Tableau de bord — Recherche appartement C.T.</title>
 <style>
   :root{ color-scheme: light;
     --prim:#1F4E79; --prim-dark:#152D4D; --sec:#2E75B6; --or:#C9A961;
@@ -104,17 +105,13 @@
     <div class="sub">Immobilier — by Le Pacte Immo</div>
   </div>
   <div class="title-block">
-    <h2>Ta recherche d'appartement — Corinne TARDIEU</h2>
+    <h2>Ta recherche d'appartement — C.T.</h2>
     <div class="meta">T3 / T4 / T5 · Périmètre Cercle des Nageurs (≤ 1 000 m) · Sources : Jinka · LeBonCoin · PAP · Mise à jour : <span id="dateMaj">21/05/2026 à 09h13</span></div>
-  </div>
-  <div class="refresh-wrap">
-    <button class="btn-refresh" id="btnRefresh">🔄 Mettre à jour maintenant</button>
-    <div class="refresh-status" id="refreshStatus">Relance un scan de ton alerte Jinka</div>
   </div>
 </header>
 
 <div class="wrap">
-  <p class="intro">Corinne, voici les biens qui correspondent à ta recherche. La liste se met à jour automatiquement chaque jour de semaine, et tu peux la rafraîchir toi-même avec le bouton ci-dessus.</p>
+  <p class="intro">Voici les biens qui correspondent à ta recherche, dans ton périmètre et ton budget. Liste actualisée régulièrement par ton conseiller.</p>
   <div class="note-banner">
     <strong>Ton cahier des charges :</strong> T3 / T4 / T5 · <strong>terrasse impérative</strong> · <strong>parking en propre</strong> · <strong>ascenseur</strong> · ≤ 15 min à pied du Cercle des Nageurs (≤ 1 000 m) · budget 330–420 K€. &nbsp;Parking, terrasse et ascenseur proviennent des métadonnées des portails (OUI / NON / N.R. à confirmer lors de la visite). <strong>★</strong> = parking + terrasse + budget OK dans le périmètre.
   </div>
@@ -184,7 +181,6 @@
 <script>
 const CERCLE={lat:43.2879,lng:5.3556};
 const ALERT="d2c8d01dd1ac3ee774f560dd73abd445";
-const SCHED_TASK="maj-tableau-bord-tardieu";
 const BIENS=[
  {id:1,uuid:"0b71e087-06be-48e9-8b7b-c4c7fa84576f",link:"https://www.jinka.fr/ad/0b71e087-06be-48e9-8b7b-c4c7fa84576f?alert_id=d2c8d01dd1ac3ee774f560dd73abd445",src:"AIXTY Marseille (+ LeBonCoin)",secteur:"Marseille 7e — secteur sud (position à vérifier)",quartier:"7e (sud)",pieces:3,surface:57,prix:342000,prixM2:6000,dpe:"C",parking:true,terrasse:true,asc:true,lat:43.2545,lng:5.3722,distance:3950,perim:false,est:false},
  {id:2,uuid:"e8155e91-02ae-4963-8330-adc2a7348f5e",link:"https://www.jinka.fr/ad/e8155e91-02ae-4963-8330-adc2a7348f5e?alert_id=d2c8d01dd1ac3ee774f560dd73abd445",src:"Mon Office Immobilier (+ LeBonCoin)",secteur:"Endoume",quartier:"Endoume",pieces:3,surface:65,prix:435000,prixM2:6692,dpe:"B",parking:true,terrasse:null,asc:false,lat:43.2846,lng:5.3551,distance:369,perim:true,est:false},
@@ -366,22 +362,6 @@ document.getElementById('reset').addEventListener('click',()=>{
   document.getElementById('fAsc').value="";document.getElementById('fQuartier').value="";document.getElementById('fPrix').value=450000;document.getElementById('prixVal').textContent="450 000 €";
   sortKey="distance";sortDir=1;render();});
 
-// --- BOUTON DE MISE À JOUR : déclenche le re-scan Jinka depuis l'interface ---
-document.getElementById('btnRefresh').addEventListener('click',async()=>{
-  const btn=document.getElementById('btnRefresh'),st=document.getElementById('refreshStatus');
-  if(!(window.cowork&&window.cowork.runScheduledTask)){
-    st.textContent="Indisponible ici — ouvre la page dans Cowork.";return;}
-  btn.disabled=true;btn.textContent="⏳ Mise à jour en cours…";
-  st.textContent="Claude scanne ton alerte Jinka via Chrome…";
-  try{
-    await window.cowork.runScheduledTask(SCHED_TASK);
-    btn.textContent="✓ Mise à jour lancée";
-    st.textContent="Scan en cours. La page se rafraîchira automatiquement à la fin (≈ 1-2 min). Garde Chrome ouvert et connecté à Jinka.";
-  }catch(e){
-    btn.disabled=false;btn.textContent="🔄 Mettre à jour maintenant";
-    st.textContent="Échec du lancement : "+(e&&e.message?e.message:"réessaie.");
-  }
-});
 
 initQuartiers();renderKPIs();render();
 </script>
