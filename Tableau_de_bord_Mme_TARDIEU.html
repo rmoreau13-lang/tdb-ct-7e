@@ -1,0 +1,388 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Tableau Bord C.T.",
+  "schemaVersion": 1,
+  "description": "Tableau de bord vivant de la recherche d'appartement de C.T. (T3/T4/T5, Cercle des Nageurs, Marseille 7e). Multi-sources Jinka + LeBonCoin + PAP (recoupement SeLoger) : 49 biens (30 T3 + 17 T4 + 2 T5), 43 dans le périmètre <=1000m, 4 biens etoiles. Carte OpenStreetMap maison (tuiles + repli), critères parking/terrasse/ascenseur, filtres, liens cliquables, bouton de re-scan."
+}
+</script>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tableau de bord — Recherche appartement C.T.</title>
+<style>
+  :root{ color-scheme: light;
+    --prim:#1F4E79; --prim-dark:#152D4D; --sec:#2E75B6; --or:#C9A961;
+    --txt:#1A1A2E; --gris:#F7F8FA; --gris2:#E8ECF0; --vert:#5CB85C; --vert-bg:#DFF0D8;
+    --orange:#F0AD4E; --orange-bg:#FCF8E3; --rouge:#D9534F; --rouge-bg:#F2DEDE; --bleu-c:#D9E1F2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Calibri,Arial,sans-serif;color:var(--txt);background:#fff;line-height:1.4}
+  .topbar{height:6px;background:var(--prim-dark)}
+  header{background:#fff;padding:16px 22px;border-bottom:3px solid var(--or);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  .brand h1{font-size:14px;letter-spacing:.5px;color:var(--prim-dark)}
+  .brand .sub{font-size:9px;color:var(--or);letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+  .title-block h2{font-size:18px;color:var(--prim-dark)}
+  .title-block .meta{font-size:11px;color:#6B7280;font-style:italic;margin-top:2px}
+  .refresh-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+  .btn-refresh{background:var(--or);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 2px 6px rgba(201,169,97,.4)}
+  .btn-refresh:hover{background:#b89545}
+  .btn-refresh:disabled{opacity:.6;cursor:default}
+  .refresh-status{font-size:10.5px;color:#6B7280;font-style:italic;max-width:240px;text-align:right}
+  .wrap{max-width:100%;margin:0 auto;padding:16px 22px 50px}
+  .intro{font-size:12.5px;color:var(--prim-dark);margin:4px 0 12px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
+  .kpi{background:var(--gris);border-radius:10px;padding:12px 14px;border-bottom:3px solid var(--or)}
+  .kpi .lbl{font-size:10px;color:#6B7280;text-transform:uppercase;letter-spacing:.4px}
+  .kpi .val{font-size:23px;font-weight:700;color:var(--prim-dark);margin-top:3px}
+  .kpi .val.green{color:var(--vert)}
+  .kpi .val.gold{color:var(--or)}
+  .kpi .sub{font-size:9.5px;color:#9098a5;margin-top:1px}
+  .note-banner{background:var(--orange-bg);border-left:4px solid var(--orange);padding:9px 14px;border-radius:6px;font-size:12px;margin-bottom:14px;color:#7a5a14}
+  .controls{background:var(--gris);border-radius:10px;padding:13px 15px;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+  .ctrl{display:flex;flex-direction:column;gap:4px}
+  .ctrl label{font-size:10px;color:#6B7280;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+  .ctrl select,.ctrl input{padding:6px 9px;border:1px solid var(--gris2);border-radius:6px;font-size:12.5px;font-family:inherit;background:#fff;min-width:110px}
+  .ctrl input[type=range]{min-width:150px}
+  .toggle{display:flex;align-items:center;gap:6px;font-size:12.5px;cursor:pointer;user-select:none}
+  .reset{background:var(--prim);color:#fff;border:none;padding:7px 14px;border-radius:6px;font-size:12.5px;cursor:pointer;font-weight:600}
+  .reset:hover{background:var(--prim-dark)}
+  .layout{display:grid;grid-template-columns:1fr 440px;gap:14px}
+  @media(max-width:1050px){.layout{grid-template-columns:1fr}}
+  .panel{background:#fff;border:1px solid var(--gris2);border-radius:10px;overflow:hidden}
+  .panel h3{background:var(--prim);color:#fff;padding:10px 15px;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+  .panel h3 .count{font-size:11px;font-weight:400;opacity:.85}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th{background:var(--gris);text-align:left;padding:8px 6px;font-size:10px;text-transform:uppercase;letter-spacing:.3px;color:var(--prim);cursor:pointer;white-space:nowrap;border-bottom:2px solid var(--gris2);position:sticky;top:0}
+  th:hover{background:var(--gris2)}
+  td{padding:8px 6px;border-bottom:1px solid var(--gris2);vertical-align:middle}
+  tr:hover td{background:#f3f7fc}
+  tr.hors td{background:#fbf3f3}
+  tr.hors:hover td{background:#f7e9e9}
+  .tablebox{max-height:540px;overflow:auto}
+  .badge{display:inline-block;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap}
+  .b-oui{background:var(--vert-bg);color:#2D7A2D}
+  .b-non{background:var(--rouge-bg);color:#A33632}
+  .b-nr{background:var(--gris2);color:#6B7280}
+  .b-hors{background:var(--rouge-bg);color:#A33632}
+  .b-in{background:var(--vert-bg);color:#2D7A2D}
+  .prix{font-weight:700;color:var(--prim-dark);white-space:nowrap}
+  .lien{color:var(--sec);font-weight:700;text-decoration:none;white-space:nowrap}
+  .lien:hover{text-decoration:underline}
+  .secteur{font-weight:600;color:var(--prim-dark);font-size:11.5px}
+  .dist{font-size:10px;color:#6B7280}
+  /* --- carte OpenStreetMap maison (tuiles en direct + plan de repli) --- */
+  #mapbox{position:relative;padding:0}
+  #map{position:relative;width:100%;height:430px;overflow:hidden;cursor:grab;
+    background-color:#e9eef1;
+    background-image:linear-gradient(rgba(31,78,121,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(31,78,121,.07) 1px,transparent 1px);
+    background-size:40px 40px}
+  #map .tile{position:absolute;width:256px;height:256px;user-select:none;pointer-events:none;z-index:1}
+  #map .circle1k{position:absolute;border:2px solid rgba(31,78,121,.8);background:rgba(46,117,182,.10);border-radius:50%;pointer-events:none;z-index:3}
+  #map .mk{position:absolute;width:16px;height:16px;border-radius:50%;border:2px solid #fff;transform:translate(-50%,-50%);box-shadow:0 1px 4px rgba(0,0,0,.45);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;text-decoration:none;z-index:5}
+  #map .mk:hover{width:21px;height:21px;z-index:10}
+  #map .mkstar{box-shadow:0 0 0 3px rgba(201,169,97,.7),0 1px 4px rgba(0,0,0,.45)}
+  #map .mkest{border-style:dashed;opacity:.92}
+  #map .cerclemk{position:absolute;transform:translate(-50%,-50%);color:var(--or);font-size:24px;line-height:1;-webkit-text-stroke:1px var(--prim-dark);z-index:6;pointer-events:none}
+  .mapctrl{position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:4px;z-index:20}
+  .mapctrl button{width:28px;height:28px;border:none;background:#fff;border-radius:6px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.3);color:var(--prim-dark);line-height:1}
+  .mapctrl button:hover{background:var(--gris2)}
+  .scalewrap{position:absolute;left:8px;bottom:8px;z-index:20;font-size:9px;color:var(--prim-dark);text-align:center}
+  .scalebar{height:6px;border:2px solid var(--prim-dark);border-top:none;background:rgba(255,255,255,.55)}
+  .attrib{position:absolute;bottom:2px;right:4px;font-size:9px;background:rgba(255,255,255,.78);padding:1px 5px;border-radius:3px;z-index:20;color:#333}
+  .maplegend{font-size:10.5px;color:#6B7280;padding:8px 14px;background:var(--gris);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .maplegend span{display:inline-flex;align-items:center;gap:4px}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+  footer{text-align:center;font-size:10.5px;color:#9098a5;padding:20px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<header>
+  <div class="brand">
+    <h1>PARDO &amp; CHARTIER</h1>
+    <div class="sub">Immobilier — by Le Pacte Immo</div>
+  </div>
+  <div class="title-block">
+    <h2>Ta recherche d'appartement — C.T.</h2>
+    <div class="meta">T3 / T4 / T5 · Périmètre Cercle des Nageurs (≤ 1 000 m) · Sources : Jinka · LeBonCoin · PAP (recoupement SeLoger) · Mise à jour : <span id="dateMaj">21/05/2026 à 12h48</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="intro">Voici les biens qui correspondent à ta recherche. La liste se met à jour automatiquement chaque jour de semaine.</p>
+  <div class="note-banner">
+    <strong>Ton cahier des charges :</strong> T3 / T4 / T5 · <strong>terrasse impérative</strong> · <strong>parking en propre</strong> · <strong>ascenseur</strong> · ≤ 15 min à pied du Cercle des Nageurs (≤ 1 000 m) · budget 330–420 K€. &nbsp;Parking, terrasse et ascenseur proviennent des métadonnées des portails (OUI / NON / N.R. à confirmer lors de la visite). Pour beaucoup d'annonces LeBonCoin la terrasse n'est pas renseignée en ligne (N.R.) — à vérifier à l'appel. <strong>★</strong> = parking + terrasse + budget OK dans le périmètre.
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="controls">
+    <div class="ctrl"><label>Périmètre</label><label class="toggle"><input type="checkbox" id="fPerim"> ≤ 1 000 m seulement</label></div>
+    <div class="ctrl"><label>Type</label><select id="fType"><option value="">Tous</option><option value="3">T3</option><option value="4">T4</option><option value="5">T5</option></select></div>
+    <div class="ctrl"><label>Parking</label><select id="fParking"><option value="">Tous</option><option value="oui">OUI seulement</option><option value="non">Sans NON</option></select></div>
+    <div class="ctrl"><label>Terrasse</label><select id="fTerrasse"><option value="">Toutes</option><option value="oui">OUI seulement</option><option value="non">Sans NON</option></select></div>
+    <div class="ctrl"><label>Ascenseur</label><select id="fAsc"><option value="">Tous</option><option value="oui">OUI seulement</option><option value="non">Sans NON</option></select></div>
+    <div class="ctrl"><label>Secteur</label><select id="fQuartier"><option value="">Tous</option></select></div>
+    <div class="ctrl"><label>Prix max : <span id="prixVal">450 000 €</span></label><input type="range" id="fPrix" min="270000" max="450000" step="5000" value="450000"></div>
+    <button class="reset" id="reset">Réinitialiser</button>
+  </div>
+
+  <div class="layout">
+    <div class="panel">
+      <h3>Biens correspondants <span class="count" id="tableCount"></span></h3>
+      <div class="tablebox">
+        <table id="tbl">
+          <thead><tr>
+            <th data-k="secteur">Secteur / Adresse</th>
+            <th data-k="surface">Surf.</th>
+            <th data-k="prix">Prix</th>
+            <th data-k="prixM2">€/m²</th>
+            <th data-k="distance">Dist.</th>
+            <th data-k="perim">Zone</th>
+            <th data-k="parking">Park.</th>
+            <th data-k="terrasse">Terr.</th>
+            <th data-k="asc">Asc.</th>
+            <th data-k="dpe">DPE</th>
+            <th>Fiche</th>
+          </tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="maplegend">
+        <span><span class="dot" style="background:var(--vert)"></span> Parking OUI</span>
+        <span><span class="dot" style="background:var(--rouge)"></span> Parking NON</span>
+        <span><span class="dot" style="background:#9098a5"></span> N.R.</span>
+        <span>★ conforme</span>
+        <span><span style="border:2px dashed #888;border-radius:50%;width:11px;height:11px;display:inline-block"></span> position estimée (~)</span>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Carte des biens <span class="count">★ Cercle des Nageurs · cercle = 1 km</span></h3>
+      <div id="mapbox">
+        <div id="map"></div>
+        <div class="mapctrl"><button id="zin" title="Zoomer">+</button><button id="zout" title="Dézoomer">−</button><button id="zfit" title="Recentrer">⤢</button></div>
+        <div class="scalewrap"><div class="scalebar" id="scalebar" style="width:144px"></div><span id="scalelbl">1 km</span></div>
+        <div class="attrib">© OpenStreetMap</div>
+      </div>
+      <div class="maplegend">
+        <span>Glisse pour te déplacer · molette ou +/− pour zoomer. Si le fond de carte reste vide dans cet aperçu, ouvre le fichier autonome pour la carte OpenStreetMap complète.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Page vivante générée par Pardo &amp; Chartier — Rémi MOREAU · Données agrégées via Jinka, LeBonCoin et PAP (recoupement SeLoger) · Fond de carte © OpenStreetMap.<br>
+  Mise à jour automatique chaque jour de semaine. Prix de présentation, à confronter aux valeurs réalisées.
+</footer>
+
+<script>
+const CERCLE={lat:43.2879,lng:5.3556};
+const ALERT="d2c8d01dd1ac3ee774f560dd73abd445";
+const SCHED_TASK="maj-tableau-bord-tardieu";
+const BIENS=[
+ {id:1,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3198911524",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:72.3,prix:409000,prixM2:5657,dpe:"C",parking:true,terrasse:null,asc:null,lat:43.2875,lng:5.3551,distance:60,perim:true,est:false},
+ {id:2,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3184085203",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:88,prix:419000,prixM2:4761,dpe:"E",parking:null,terrasse:null,asc:false,lat:43.287888,lng:5.357577,distance:160,perim:true,est:false},
+ {id:3,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3173039757",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:90,prix:429000,prixM2:4767,dpe:"B",parking:null,terrasse:null,asc:false,lat:43.2885,lng:5.357632,distance:177,perim:true,est:false},
+ {id:4,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3193206036",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:90,prix:410000,prixM2:4556,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.290115,lng:5.355375,distance:247,perim:true,est:false},
+ {id:5,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3177664140",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:82,prix:349000,prixM2:4256,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.287506,lng:5.358723,distance:257,perim:true,est:false},
+ {id:6,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3196354643",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:65,prix:350000,prixM2:5385,dpe:"C",parking:null,terrasse:null,asc:false,lat:43.2874,lng:5.358782,distance:264,perim:true,est:false},
+ {id:7,uuid:"",link:"https://www.pap.fr/annonces/appartement-marseille-7e-13007-r462401990",src:"PAP (de particulier)",sources:['pap'],secteur:"Marseille 7e · PAP (de particulier)",quartier:"Marseille 7e (autres portails)",pieces:3,surface:70,prix:320000,prixM2:4571,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.2855,lng:5.3552,distance:269,perim:true,est:true},
+ {id:8,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3163919006",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:45,prix:293000,prixM2:6511,dpe:"F",parking:null,terrasse:null,asc:null,lat:43.28548,lng:5.355073,distance:272,perim:true,est:false},
+ {id:9,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3132463501",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:72,prix:367500,prixM2:5104,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.287014,lng:5.358989,distance:291,perim:true,est:false},
+ {id:10,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3128191888",src:"LeBonCoin",sources:['leboncoin'],secteur:"Balcon · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:54,prix:280000,prixM2:5185,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.28845,lng:5.35942,distance:315,perim:true,est:false},
+ {id:11,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3184410758",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:68,prix:349000,prixM2:5132,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.28716,lng:5.359495,distance:326,perim:true,est:false},
+ {id:12,uuid:"643d7d6c-8cf4-40c6-872f-8c3982a76ba4",link:"https://www.jinka.fr/ad/643d7d6c-8cf4-40c6-872f-8c3982a76ba4?alert_id=d2c8d01dd1ac3ee774f560dd73abd445",src:"Jinka — lefigaro",sources:['lefigaro.fr'],secteur:"Marseille 7e (position estimée)",quartier:"7e (estimé)",pieces:3,surface:75,prix:389000,prixM2:5187,dpe:"B",parking:true,terrasse:false,asc:true,lat:43.2858,lng:5.3525,distance:343,perim:true,est:true},
+ {id:13,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3197501532",src:"LeBonCoin",sources:['leboncoin'],secteur:"Terrasse · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:50,prix:380000,prixM2:7600,dpe:"C",parking:false,terrasse:true,asc:false,lat:43.29026,lng:5.35869,distance:363,perim:true,est:false},
+ {id:14,uuid:"5ec50568-3cd2-4725-bd3d-436cbe1af549",link:"https://www.jinka.fr/ad/5ec50568-3cd2-4725-bd3d-436cbe1af549?alert_id=d2c8d01dd1ac3ee774f560dd73abd445",src:"Jinka — Terrasse en ville",sources:['Terrasse en ville', 'leboncoin'],secteur:"Marseille 7e (position estimée)",quartier:"7e (estimé)",pieces:3,surface:71,prix:389000,prixM2:5479,dpe:"B",parking:true,terrasse:false,asc:true,lat:43.291203,lng:5.355409,distance:368,perim:true,est:false},
+ {id:15,uuid:"e8155e91-02ae-4963-8330-adc2a7348f5e",link:"https://www.jinka.fr/ad/e8155e91-02ae-4963-8330-adc2a7348f5e?alert_id=d2c8d01dd1ac3ee774f560dd73abd445",src:"Jinka — Mon Office Immo",sources:['Mon Office Immobilier'],secteur:"Endoume",quartier:"Endoume",pieces:3,surface:65,prix:435000,prixM2:6692,dpe:"B",parking:true,terrasse:null,asc:false,lat:43.2846,lng:5.3551,distance:369,perim:true,est:false},
+ {id:16,uuid:"",link:"https://www.pap.fr/annonces/appartement-marseille-7e-13007-r462102071",src:"PAP (de particulier)",sources:['pap'],secteur:"Endoume · PAP (de particulier)",quartier:"Marseille 7e (autres portails)",pieces:3,surface:77,prix:349000,prixM2:4532,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.2846,lng:5.3551,distance:369,perim:true,est:true},
+ {id:17,uuid:"d52598cd-2d97-4ac1-a6e7-b64364d5da7a",link:"https://www.jinka.fr/ad/d52598cd-2d97-4ac1-a6e7-b64364d5da7a?alert_id=d2c8d01dd1ac3ee774f560dd73abd445",src:"Jinka — bienici / AIXTY (+ LeBonCoin)",sources:['bienici.com', 'AIXTY Marseille', 'leboncoin'],secteur:"Le Pharo — proche Catalans",quartier:"Le Pharo",pieces:3,surface:57,prix:342000,prixM2:6000,dpe:"C",parking:true,terrasse:true,asc:true,lat:43.2906,lng:5.35917,distance:417,perim:true,est:false},
+ {id:18,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3171370770",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:76,prix:345000,prixM2:4539,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.2843,lng:5.359731,distance:522,perim:true,est:false},
+ {id:19,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3147811323",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:71,prix:389000,prixM2:5479,dpe:"B",parking:true,terrasse:null,asc:true,lat:43.290478,lng:5.361715,distance:572,perim:true,est:false},
+ {id:20,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3191637413",src:"LeBonCoin",sources:['leboncoin'],secteur:"Terrasse · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:58,prix:344000,prixM2:5931,dpe:"C",parking:null,terrasse:true,asc:null,lat:43.288624,lng:5.362713,distance:581,perim:true,est:false},
+ {id:21,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3192008999",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:86,prix:315000,prixM2:3663,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.290104,lng:5.362392,distance:602,perim:true,est:false},
+ {id:22,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3131433406",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:74,prix:366000,prixM2:4946,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.283497,lng:5.351173,distance:607,perim:true,est:false},
+ {id:23,uuid:"",link:"https://www.pap.fr/annonces/appartement-marseille-7e-13007-r463502926",src:"PAP (de particulier)",sources:['pap'],secteur:"Abbaye · PAP (de particulier)",quartier:"Marseille 7e (autres portails)",pieces:3,surface:79,prix:440000,prixM2:5570,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.2905,lng:5.3625,distance:629,perim:true,est:true},
+ {id:24,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3173693697",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:75,prix:415000,prixM2:5533,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.282837,lng:5.352014,distance:633,perim:true,est:false},
+ {id:25,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3138361891",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:81,prix:350000,prixM2:4321,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.287342,lng:5.363636,distance:653,perim:true,est:false},
+ {id:26,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3166829373",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:73,prix:316000,prixM2:4329,dpe:"D",parking:null,terrasse:null,asc:false,lat:43.290607,lng:5.362921,distance:665,perim:true,est:false},
+ {id:27,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3174043360",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:67,prix:363000,prixM2:5418,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.29232,lng:5.361161,distance:666,perim:true,est:false},
+ {id:28,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3192398426",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:65,prix:435000,prixM2:6692,dpe:"B",parking:true,terrasse:null,asc:null,lat:43.283684,lng:5.361529,distance:671,perim:true,est:false},
+ {id:29,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3202185949",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:72.25,prix:435000,prixM2:6021,dpe:"B",parking:true,terrasse:null,asc:false,lat:43.29084,lng:5.36359,distance:725,perim:true,est:false},
+ {id:30,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3184104348",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:56,prix:321000,prixM2:5732,dpe:"C",parking:true,terrasse:null,asc:null,lat:43.288773,lng:5.3647,distance:743,perim:true,est:false},
+ {id:31,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3175969638",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:74,prix:419600,prixM2:5670,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.28933,lng:5.364681,distance:752,perim:true,est:false},
+ {id:32,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3188456917",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:80,prix:298000,prixM2:3725,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.28819,lng:5.36497,distance:759,perim:true,est:false},
+ {id:33,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3144473492",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:88,prix:290000,prixM2:3295,dpe:"C",parking:null,terrasse:null,asc:false,lat:43.28231,lng:5.360998,distance:760,perim:true,est:false},
+ {id:34,uuid:"213dacda-b31a-40f5-a8cc-dbe56356146b",link:"https://www.jinka.fr/ad/213dacda-b31a-40f5-a8cc-dbe56356146b?alert_id=d2c8d01dd1ac3ee774f560dd73abd445",src:"Jinka — Terrasse en ville (+ LeBonCoin)",sources:['Terrasse en ville', 'leboncoin'],secteur:"Marseille 7e — secteur St-Victor/sud",quartier:"St-Victor",pieces:3,surface:63,prix:420000,prixM2:6667,dpe:"D",parking:true,terrasse:true,asc:null,lat:43.28818,lng:5.365387,distance:793,perim:true,est:false},
+ {id:35,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3177127399",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:79,prix:399000,prixM2:5051,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.28125,lng:5.359722,distance:811,perim:true,est:false},
+ {id:36,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3199540810",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:80,prix:369000,prixM2:4612,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.29268,lng:5.363513,distance:832,perim:true,est:false},
+ {id:37,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3197351532",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:49,prix:295000,prixM2:6020,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.293476,lng:5.36266,distance:843,perim:true,est:false},
+ {id:38,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3140649173",src:"LeBonCoin",sources:['leboncoin'],secteur:"Terrasse · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:54,prix:279000,prixM2:5167,dpe:"D",parking:null,terrasse:true,asc:false,lat:43.284622,lng:5.365392,distance:872,perim:true,est:false},
+ {id:39,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3139926354",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:88,prix:399000,prixM2:4534,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.289665,lng:5.366411,distance:897,perim:true,est:false},
+ {id:40,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3187726361",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:85,prix:376000,prixM2:4424,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.28928,lng:5.366811,distance:920,perim:true,est:false},
+ {id:41,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3196606721",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:79,prix:450000,prixM2:5696,dpe:"D",parking:null,terrasse:null,asc:false,lat:43.28144,lng:5.363034,distance:937,perim:true,est:false},
+ {id:42,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3192099482",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:47,prix:320000,prixM2:6809,dpe:"C",parking:true,terrasse:null,asc:false,lat:43.281193,lng:5.36269,distance:941,perim:true,est:false},
+ {id:43,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3191715615",src:"LeBonCoin",sources:['leboncoin'],secteur:"T5 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:5,surface:85,prix:369000,prixM2:4341,dpe:"E",parking:null,terrasse:null,asc:false,lat:43.286366,lng:5.367381,distance:969,perim:true,est:false},
+ {id:44,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3199540769",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:92,prix:439000,prixM2:4772,dpe:"D",parking:null,terrasse:null,asc:false,lat:43.278305,lng:5.361021,distance:1154,perim:false,est:false},
+ {id:45,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3114817160",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:110,prix:390000,prixM2:3545,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.29139,lng:5.36994,distance:1224,perim:false,est:false},
+ {id:46,uuid:"ba92debe-b50f-4ee2-be27-5ad0f1b521d0",link:"https://www.jinka.fr/ad/ba92debe-b50f-4ee2-be27-5ad0f1b521d0?alert_id=d2c8d01dd1ac3ee774f560dd73abd445",src:"Jinka — bienici",sources:['bienici.com'],secteur:"Roucas Blanc — proche mer",quartier:"Roucas Blanc",pieces:3,surface:65,prix:350000,prixM2:5385,dpe:"D",parking:true,terrasse:true,asc:null,lat:43.278,lng:5.36435,distance:1309,perim:false,est:false},
+ {id:47,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3198961966",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:80,prix:329000,prixM2:4112,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.29241,lng:5.370958,distance:1340,perim:false,est:false},
+ {id:48,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3179380617",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:137,prix:450000,prixM2:3285,dpe:"C",parking:null,terrasse:null,asc:false,lat:43.29187,lng:5.37135,distance:1349,perim:false,est:false},
+ {id:49,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3151006929",src:"LeBonCoin",sources:['leboncoin'],secteur:"T5 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:5,surface:82,prix:430000,prixM2:5244,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.27738,lng:5.371714,distance:1752,perim:false,est:false}
+];
+const url=b=>b.link||(b.uuid?`https://www.jinka.fr/ad/${b.uuid}?alert_id=${ALERT}`:"#");
+const pLabel=v=>v===true?"OUI":v===false?"NON":"N.R.";
+const pClass=v=>v===true?"b-oui":v===false?"b-non":"b-nr";
+const pColor=v=>v===true?"#5CB85C":v===false?"#D9534F":"#9098a5";
+const isStar=b=>b.perim&&b.parking===true&&b.terrasse!==false&&b.prix>=330000&&b.prix<=420000;
+const fmtP=p=>p.toLocaleString('fr-FR')+" €";
+let sortKey="distance",sortDir=1,currentData=[];
+
+function getFiltered(){
+  const perim=document.getElementById('fPerim').checked,fp=document.getElementById('fParking').value,
+    ft=document.getElementById('fTerrasse').value,fa=document.getElementById('fAsc').value,
+    fq=document.getElementById('fQuartier').value,fty=document.getElementById('fType').value,
+    px=+document.getElementById('fPrix').value;
+  return BIENS.filter(b=>{
+    if(perim&&!b.perim)return false;
+    if(fty&&String(b.pieces)!==fty)return false;
+    if(fp==="oui"&&b.parking!==true)return false;
+    if(fp==="non"&&b.parking===false)return false;
+    if(ft==="oui"&&b.terrasse!==true)return false;
+    if(ft==="non"&&b.terrasse===false)return false;
+    if(fa==="oui"&&b.asc!==true)return false;
+    if(fa==="non"&&b.asc===false)return false;
+    if(fq&&b.quartier!==fq)return false;
+    if(b.prix>px)return false;
+    return true;
+  }).sort((a,b)=>{
+    let va=a[sortKey],vb=b[sortKey];
+    if(sortKey==="secteur")return a.secteur.localeCompare(b.secteur)*sortDir;
+    if(sortKey==="parking"||sortKey==="terrasse"||sortKey==="asc"){const o={true:0,null:1,false:2};return (o[a[sortKey]]-o[b[sortKey]])*sortDir;}
+    if(sortKey==="perim")return ((a.perim?0:1)-(b.perim?0:1))*sortDir;
+    if(va==null)va=sortKey==="distance"?999999:0;
+    if(vb==null)vb=sortKey==="distance"?999999:0;
+    return (va-vb)*sortDir;
+  });
+}
+function renderKPIs(){
+  const inP=BIENS.filter(b=>b.perim),estP=inP.filter(b=>b.est).length;
+  const park=BIENS.filter(b=>b.parking===true).length;
+  const stars=BIENS.filter(isStar).length;
+  const prix=inP.map(b=>b.prix).sort((a,b)=>a-b),med=prix[Math.floor(prix.length/2)];
+  const m2=inP.map(b=>b.prixM2).sort((a,b)=>a-b),medM2=m2[Math.floor(m2.length/2)];
+  document.getElementById('kpis').innerHTML=`
+    <div class="kpi"><div class="lbl">Total annonces</div><div class="val">${BIENS.length}</div><div class="sub">T3 / T4 / T5</div></div>
+    <div class="kpi"><div class="lbl">Dans le périmètre</div><div class="val">${inP.length}</div><div class="sub">≤ 1 000 m${estP?` · dont ${estP} estimé${estP>1?'s':''}`:''}</div></div>
+    <div class="kpi"><div class="lbl">Avec parking</div><div class="val green">${park}</div><div class="sub">confirmé OUI</div></div>
+    <div class="kpi"><div class="lbl">Biens ★</div><div class="val gold">${stars}</div><div class="sub">parking+terrasse+budget</div></div>
+    <div class="kpi"><div class="lbl">Prix médian</div><div class="val">${Math.round(med/1000)} K€</div><div class="sub">périmètre</div></div>
+    <div class="kpi"><div class="lbl">€/m² médian</div><div class="val">${medM2.toLocaleString('fr-FR')}</div><div class="sub">périmètre</div></div>`;
+}
+function render(){
+  const data=getFiltered();currentData=data;
+  document.getElementById('tbody').innerHTML=data.map(b=>`<tr class="${b.perim?'':'hors'}">
+    <td><div class="secteur">${isStar(b)?'★ ':''}${b.secteur}</div><div class="dist">T${b.pieces} · ${b.src}${b.est?' · position estimée':''}</div></td>
+    <td>${b.surface} m²</td><td class="prix">${fmtP(b.prix)}</td><td>${b.prixM2.toLocaleString('fr-FR')}</td>
+    <td>${(b.est?'~':'')+b.distance+' m'}</td>
+    <td><span class="badge ${b.perim?'b-in':'b-hors'}">${b.perim?'incluse':'hors'}</span></td>
+    <td><span class="badge ${pClass(b.parking)}">${pLabel(b.parking)}</span></td>
+    <td><span class="badge ${pClass(b.terrasse)}">${pLabel(b.terrasse)}</span></td>
+    <td><span class="badge ${pClass(b.asc)}">${pLabel(b.asc)}</span></td>
+    <td>${b.dpe}</td><td><a class="lien" href="${url(b)}" target="_blank" rel="noopener">Voir ↗</a></td></tr>`).join('');
+  document.getElementById('tableCount').textContent=data.length+" bien"+(data.length>1?"s":"");
+  renderMap();
+}
+
+/* ---------- Carte slippy OpenStreetMap maison (sans Leaflet) ---------- */
+const TILE=256;
+let mapView={lat:CERCLE.lat,lng:CERCLE.lng,z:14};
+function project(lat,lng,z){
+  const s=Math.sin(lat*Math.PI/180);
+  const x=(lng+180)/360*Math.pow(2,z);
+  const y=(0.5-Math.log((1+s)/(1-s))/(4*Math.PI))*Math.pow(2,z);
+  return {x:x*TILE,y:y*TILE};
+}
+function metersPerPixel(lat,z){return 156543.03392*Math.cos(lat*Math.PI/180)/Math.pow(2,z);}
+function renderMap(){
+  const map=document.getElementById('map');if(!map)return;
+  const W=map.clientWidth||416,H=map.clientHeight||430,z=mapView.z,n=Math.pow(2,z);
+  const c=project(mapView.lat,mapView.lng,z),originX=c.x-W/2,originY=c.y-H/2;
+  let html='';
+  const x0=Math.floor(originX/TILE),x1=Math.floor((originX+W)/TILE);
+  const y0=Math.floor(originY/TILE),y1=Math.floor((originY+H)/TILE);
+  for(let tx=x0;tx<=x1;tx++)for(let ty=y0;ty<=y1;ty++){
+    if(ty<0||ty>=n)continue;
+    const wx=((tx%n)+n)%n,sub="abc"[((tx%3)+3)%3];
+    const px=tx*TILE-originX,py=ty*TILE-originY;
+    html+=`<img class="tile" src="https://${sub}.tile.openstreetmap.org/${z}/${wx}/${ty}.png" style="left:${px}px;top:${py}px" onerror="this.style.display='none'" draggable="false">`;
+  }
+  map.innerHTML=html;
+  const cc=project(CERCLE.lat,CERCLE.lng,z),ccx=cc.x-originX,ccy=cc.y-originY;
+  const rpx=1000/metersPerPixel(CERCLE.lat,z);
+  const circ=document.createElement('div');circ.className='circle1k';
+  circ.style.cssText=`left:${ccx-rpx}px;top:${ccy-rpx}px;width:${rpx*2}px;height:${rpx*2}px`;
+  map.appendChild(circ);
+  currentData.forEach(b=>{
+    if(b.lat==null)return;
+    const p=project(b.lat,b.lng,z),mx=p.x-originX,my=p.y-originY;
+    if(mx<-40||mx>W+40||my<-40||my>H+40)return;
+    const el=document.createElement('a');
+    el.href=url(b);el.target='_blank';el.rel='noopener';
+    el.className='mk'+(isStar(b)?' mkstar':'')+(b.est?' mkest':'');
+    el.style.cssText=`left:${mx}px;top:${my}px;background:${pColor(b.parking)}`;
+    el.title=`${b.secteur} · T${b.pieces} · ${b.surface} m² · ${fmtP(b.prix)} · Parking ${pLabel(b.parking)} · Terrasse ${pLabel(b.terrasse)} · Ascenseur ${pLabel(b.asc)} · ${b.est?'~':''}${b.distance} m${b.perim?'':' (hors périmètre)'}`;
+    el.innerHTML=isStar(b)?'★':'';
+    map.appendChild(el);
+  });
+  const star=document.createElement('div');star.className='cerclemk';
+  star.style.cssText=`left:${ccx}px;top:${ccy}px`;star.title='Cercle des Nageurs';star.textContent='★';
+  map.appendChild(star);
+  // échelle
+  const mpp=metersPerPixel(CERCLE.lat,z);let target=500,wpx=target/mpp;
+  if(wpx>170){target=250;}else if(wpx<70){target=1000;}
+  wpx=target/mpp;
+  const sb=document.getElementById('scalebar'),sl=document.getElementById('scalelbl');
+  if(sb){sb.style.width=wpx.toFixed(0)+'px';sl.textContent=target>=1000?(target/1000)+' km':target+' m';}
+}
+(function initMap(){
+  const map=document.getElementById('map');
+  let drag=null;
+  map.addEventListener('mousedown',e=>{drag={x:e.clientX,y:e.clientY,lat:mapView.lat,lng:mapView.lng,moved:false};map.style.cursor='grabbing';});
+  window.addEventListener('mousemove',e=>{
+    if(!drag)return;
+    const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+    if(Math.abs(dx)+Math.abs(dy)>3)drag.moved=true;
+    const m=metersPerPixel(drag.lat,mapView.z);
+    mapView.lng=drag.lng-dx*m/(111320*Math.cos(drag.lat*Math.PI/180));
+    mapView.lat=drag.lat+dy*m/110540;
+    renderMap();
+  });
+  window.addEventListener('mouseup',()=>{if(drag){map.style.cursor='grab';drag=null;}});
+  map.addEventListener('click',e=>{if(drag&&drag.moved)e.preventDefault();},true);
+  map.addEventListener('wheel',e=>{e.preventDefault();mapView.z=Math.max(11,Math.min(18,mapView.z+(e.deltaY<0?1:-1)));renderMap();},{passive:false});
+  document.getElementById('zin').addEventListener('click',()=>{mapView.z=Math.min(18,mapView.z+1);renderMap();});
+  document.getElementById('zout').addEventListener('click',()=>{mapView.z=Math.max(11,mapView.z-1);renderMap();});
+  document.getElementById('zfit').addEventListener('click',()=>{mapView={lat:CERCLE.lat,lng:CERCLE.lng,z:14};renderMap();});
+  let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(renderMap,150);});
+})();
+
+function initQuartiers(){
+  [...new Set(BIENS.map(b=>b.quartier))].sort().forEach(q=>{
+    const o=document.createElement('option');o.value=q;o.textContent=q;document.getElementById('fQuartier').appendChild(o);});
+}
+document.querySelectorAll('th[data-k]').forEach(th=>th.addEventListener('click',()=>{
+  const k=th.dataset.k;if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1;}render();}));
+['fPerim','fType','fParking','fTerrasse','fAsc','fQuartier','fPrix'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{
+  document.getElementById('prixVal').textContent=(+document.getElementById('fPrix').value).toLocaleString('fr-FR')+" €";render();}));
+document.getElementById('reset').addEventListener('click',()=>{
+  document.getElementById('fPerim').checked=false;document.getElementById('fType').value="";document.getElementById('fParking').value="";document.getElementById('fTerrasse').value="";
+  document.getElementById('fAsc').value="";document.getElementById('fQuartier').value="";document.getElementById('fPrix').value=450000;document.getElementById('prixVal').textContent="450 000 €";
+  sortKey="distance";sortDir=1;render();});
+
+initQuartiers();renderKPIs();render();
+</script>
+</body>
+</html>
