@@ -69,6 +69,15 @@
   .b-new{background:var(--or);color:#fff;letter-spacing:.3px}
   tr.isnew td{background:#fffaf0}
   tr.isnew:hover td{background:#fbf1da}
+  .b-vu{background:var(--gris2);color:#5a6473;letter-spacing:.2px}
+  tr.vu td{background:#f3f4f6;color:#9aa2af}
+  tr.vu:hover td{background:#eceef1}
+  tr.vu .secteur{color:#7b8493}
+  tr.vu .prix{color:#8a93a1}
+  .vutoggle{display:inline-block;margin-top:3px;font-size:10px;color:#6B7280;cursor:pointer;text-decoration:none;border:1px solid var(--gris2);border-radius:5px;padding:1px 6px;white-space:nowrap}
+  .vutoggle:hover{background:var(--gris2)}
+  .vutoggle.on{color:#2D7A2D;border-color:#bfe0bf;background:var(--vert-bg)}
+  #map .mkvu{opacity:.4}
   .prix{font-weight:700;color:var(--prim-dark);white-space:nowrap}
   .lien{color:var(--sec);font-weight:700;text-decoration:none;white-space:nowrap}
   .lien:hover{text-decoration:underline}
@@ -255,6 +264,16 @@ const pClass=v=>v===true?"b-oui":v===false?"b-non":"b-nr";
 const pColor=v=>v===true?"#5CB85C":v===false?"#D9534F":"#9098a5";
 const isStar=b=>b.perim&&b.parking===true&&b.terrasse!==false&&b.prix>=330000&&b.prix<=420000;
 const fmtP=p=>p.toLocaleString('fr-FR')+" €";
+const VUKEY="ct_vus_v1";
+function loadVus(){try{return JSON.parse(localStorage.getItem(VUKEY))||{}}catch(e){return {}}}
+let VUS=loadVus();
+function saveVus(){try{localStorage.setItem(VUKEY,JSON.stringify(VUS))}catch(e){}}
+const keyOf=b=>b.link||b.uuid||("id"+b.id);
+const isVu=b=>!!VUS[keyOf(b)];
+const todayStr=()=>new Date().toLocaleDateString("fr-FR");
+const bienById=id=>BIENS.find(x=>x.id===id);
+function markSeen(id){const b=bienById(id);if(!b)return;const k=keyOf(b);if(!VUS[k]){VUS[k]=todayStr();saveVus();setTimeout(()=>{renderKPIs();render();},0);}}
+function toggleVu(id){const b=bienById(id);if(!b)return;const k=keyOf(b);if(VUS[k])delete VUS[k];else VUS[k]=todayStr();saveVus();renderKPIs();render();}
 let sortKey="distance",sortDir=1,currentData=[];
 
 function getFiltered(){
@@ -291,6 +310,7 @@ function renderKPIs(){
   const park=BIENS.filter(b=>b.parking===true).length;
   const stars=BIENS.filter(isStar).length;
   const news=BIENS.filter(b=>b.new).length;
+  const vus=BIENS.filter(isVu).length;
   const prix=inP.map(b=>b.prix).sort((a,b)=>a-b),med=prix[Math.floor(prix.length/2)];
   const m2=inP.map(b=>b.prixM2).sort((a,b)=>a-b),medM2=m2[Math.floor(m2.length/2)];
   document.getElementById('kpis').innerHTML=`
@@ -299,13 +319,14 @@ function renderKPIs(){
     <div class="kpi"><div class="lbl">Avec parking</div><div class="val green">${park}</div><div class="sub">confirmé OUI</div></div>
     <div class="kpi"><div class="lbl">Biens ★</div><div class="val gold">${stars}</div><div class="sub">parking+terrasse+budget</div></div>
     <div class="kpi"><div class="lbl">Nouveautés</div><div class="val gold">${news}</div><div class="sub">depuis le dernier relevé</div></div>
+    <div class="kpi"><div class="lbl">Déjà consultés</div><div class="val">${vus}</div><div class="sub">marqués « vu »</div></div>
     <div class="kpi"><div class="lbl">Prix médian</div><div class="val">${Math.round(med/1000)} K€</div><div class="sub">périmètre</div></div>
     <div class="kpi"><div class="lbl">€/m² médian</div><div class="val">${medM2.toLocaleString('fr-FR')}</div><div class="sub">périmètre</div></div>`;
 }
 function render(){
   const data=getFiltered();currentData=data;
-  document.getElementById('tbody').innerHTML=data.map(b=>`<tr class="${b.perim?'':'hors'} ${b.new?'isnew':''}">
-    <td style="text-align:center">${b.new?'<span class="badge b-new">NOUV.</span>':''}</td>
+  document.getElementById('tbody').innerHTML=data.map(b=>`<tr class="${b.perim?'':'hors'} ${b.new?'isnew':''} ${isVu(b)?'vu':''}">
+    <td style="text-align:center">${b.new?'<span class="badge b-new">NOUV.</span>':''}${isVu(b)?'<span class="badge b-vu" title="Consulté le '+VUS[keyOf(b)]+'">✓ Vu</span>':''}</td>
     <td><div class="secteur">${isStar(b)?'★ ':''}${b.secteur}</div><div class="dist">T${b.pieces} · ${b.src}${b.est?' · position estimée':''}</div></td>
     <td>${b.surface} m²</td><td class="prix">${fmtP(b.prix)}</td><td>${b.prixM2.toLocaleString('fr-FR')}</td>
     <td>${(b.est?'~':'')+b.distance+' m'}</td>
@@ -313,7 +334,7 @@ function render(){
     <td><span class="badge ${pClass(b.parking)}">${pLabel(b.parking)}</span></td>
     <td><span class="badge ${pClass(b.terrasse)}">${pLabel(b.terrasse)}</span></td>
     <td><span class="badge ${pClass(b.asc)}">${pLabel(b.asc)}</span></td>
-    <td>${b.dpe}</td><td><a class="lien" href="${url(b)}" target="_blank" rel="noopener">Voir ↗</a></td></tr>`).join('');
+    <td>${b.dpe}</td><td><a class="lien" href="${url(b)}" target="_blank" rel="noopener" onclick="markSeen(${b.id})">Voir ↗</a><br><a class="vutoggle${isVu(b)?' on':''}" href="#" onclick="toggleVu(${b.id});return false;">${isVu(b)?'✓ Vu — annuler':'Marquer vu'}</a></td></tr>`).join('');
   document.getElementById('tableCount').textContent=data.length+" bien"+(data.length>1?"s":"");
   renderMap();
 }
@@ -353,7 +374,7 @@ function renderMap(){
     if(mx<-40||mx>W+40||my<-40||my>H+40)return;
     const el=document.createElement('a');
     el.href=url(b);el.target='_blank';el.rel='noopener';
-    el.className='mk'+(isStar(b)?' mkstar':'')+(b.est?' mkest':'');
+    el.className='mk'+(isStar(b)?' mkstar':'')+(b.est?' mkest':'')+(isVu(b)?' mkvu':'');
     el.style.cssText=`left:${mx}px;top:${my}px;background:${pColor(b.parking)}`;
     el.title=`${b.secteur} · T${b.pieces} · ${b.surface} m² · ${fmtP(b.prix)} · Parking ${pLabel(b.parking)} · Terrasse ${pLabel(b.terrasse)} · Ascenseur ${pLabel(b.asc)} · ${b.est?'~':''}${b.distance} m${b.perim?'':' (hors périmètre)'}`;
     el.innerHTML=isStar(b)?'★':'';
