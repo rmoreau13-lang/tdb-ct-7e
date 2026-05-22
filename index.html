@@ -2,7 +2,7 @@
 {
   "name": "Tableau Bord C.T.",
   "schemaVersion": 1,
-  "description": "Tableau de bord vivant de la recherche d'appartement de C.T. (T3/T4/T5, Cercle des Nageurs, Marseille 7e). Multi-sources Jinka + LeBonCoin + PAP (recoupement SeLoger) : 61 biens (41 T3 + 18 T4 + 2 T5), 44 dans le périmètre ≤1000 m, 4 biens ★. Carte OpenStreetMap maison, filtres, KPIs, liens cliquables. Mise à jour automatique toutes les 4 h."
+  "description": "Tableau de bord vivant de la recherche d'appartement de C.T. (T3/T4/T5, Cercle des Nageurs, Marseille 7e). Multi-sources Jinka + LeBonCoin + PAP (recoupement SeLoger) : 63 biens (44 T3 + 17 T4 + 2 T5), 45 dans le périmètre ≤1000 m, 4 biens ★. Carte OpenStreetMap maison, filtres, KPIs, marquage des biens consultés. Mise à jour automatique toutes les 4 h."
 }
 </script>
 <html lang="fr">
@@ -117,7 +117,7 @@
   </div>
   <div class="title-block">
     <h2>Ta recherche d'appartement — C.T.</h2>
-    <div class="meta">T3 / T4 / T5 · Périmètre Cercle des Nageurs (≤ 1 000 m) · Sources : Jinka · LeBonCoin · PAP (recoupement SeLoger) · Mise à jour : <span id="dateMaj">22/05/2026 à 16h17</span></div>
+    <div class="meta">T3 / T4 / T5 · Périmètre Cercle des Nageurs (≤ 1 000 m) · Sources : Jinka · LeBonCoin · PAP (recoupement SeLoger) · Mise à jour : <span id="dateMaj">22/05/2026 à 22h07</span></div>
   </div>
 </header>
 
@@ -229,7 +229,6 @@ const BIENS=[
  {id:31,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3175969638",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:74,prix:419600,prixM2:5670,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.289375,lng:5.364697,distance:754,perim:true,est:false,new:false},
  {id:32,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3144473492",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:88,prix:290000,prixM2:3295,dpe:"C",parking:null,terrasse:null,asc:false,lat:43.282375,lng:5.361074,distance:757,perim:true,est:false,new:false},
  {id:33,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3202325112",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:80,prix:298000,prixM2:3725,dpe:"D",parking:false,terrasse:null,asc:true,lat:43.288190,lng:5.364970,distance:759,perim:true,est:false,new:false},
- {id:34,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3167009663",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:80,prix:310000,prixM2:3875,dpe:"D",parking:false,terrasse:null,asc:true,lat:43.288190,lng:5.364970,distance:759,perim:true,est:false,new:false},
  {id:35,uuid:"213dacda-b31a-40f5-a8cc-dbe56356146b",link:"https://www.jinka.fr/ad/213dacda-b31a-40f5-a8cc-dbe56356146b?alert_id=d2c8d01dd1ac3ee774f560dd73abd445",src:"Jinka — Terrasse en ville",sources:['leboncoin', 'Terrasse en ville'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:63,prix:420000,prixM2:6667,dpe:"D",parking:true,terrasse:true,asc:null,lat:43.288180,lng:5.365387,distance:793,perim:true,est:false,new:false},
  {id:36,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3177127399",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:79,prix:399000,prixM2:5051,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.281330,lng:5.359645,distance:801,perim:true,est:false,new:false},
  {id:37,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3199540810",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:80,prix:369000,prixM2:4612,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.292680,lng:5.363513,distance:832,perim:true,est:false,new:false},
@@ -256,7 +255,10 @@ const BIENS=[
  {id:58,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3179380617",src:"LeBonCoin",sources:['leboncoin'],secteur:"T4 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:4,surface:137,prix:450000,prixM2:3285,dpe:"C",parking:null,terrasse:null,asc:false,lat:43.291893,lng:5.371364,distance:1351,perim:false,est:false,new:false},
  {id:59,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3151006929",src:"LeBonCoin",sources:['leboncoin'],secteur:"T5 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:5,surface:82,prix:430000,prixM2:5244,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.277380,lng:5.371714,distance:1752,perim:false,est:false,new:false},
  {id:60,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3195948276",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:68,prix:440000,prixM2:6471,dpe:"E",parking:null,terrasse:null,asc:true,lat:43.277786,lng:5.372637,distance:1780,perim:false,est:false,new:false},
- {id:61,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3183338874",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:95,prix:440000,prixM2:4632,dpe:"B",parking:null,terrasse:null,asc:true,lat:43.285477,lng:5.369733,distance:1175,perim:false,est:false,new:true}
+ {id:61,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3183338874",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:95,prix:440000,prixM2:4632,dpe:"B",parking:null,terrasse:null,asc:true,lat:43.285477,lng:5.369733,distance:1175,perim:false,est:false,new:false},
+ {id:62,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3155236592",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:72,prix:340000,prixM2:4722,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.286460,lng:5.353757,distance:219,perim:true,est:false,new:true},
+ {id:63,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3181129486",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:70,prix:299000,prixM2:4271,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.287884,lng:5.367403,distance:955,perim:true,est:false,new:true},
+ {id:64,uuid:"",link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3051161762",src:"LeBonCoin",sources:['leboncoin'],secteur:"T3 · Marseille 7e",quartier:"Marseille 7e (autres portails)",pieces:3,surface:59,prix:278000,prixM2:4712,dpe:"E",parking:null,terrasse:null,asc:true,lat:43.274230,lng:5.366279,distance:1749,perim:false,est:false,new:true}
 ];
 const url=b=>b.link||(b.uuid?`https://www.jinka.fr/ad/${b.uuid}?alert_id=${ALERT}`:"#");
 const pLabel=v=>v===true?"OUI":v===false?"NON":"N.R.";
