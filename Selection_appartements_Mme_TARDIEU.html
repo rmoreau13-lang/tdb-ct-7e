@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sélection d'appartements — Madame Corinne TARDIEU</title>
+<style>
+  :root{color-scheme:light;
+    --prim:#1F4E79; --prim-dark:#152D4D; --sec:#2E75B6; --or:#C9A961;
+    --txt:#1A1A2E; --gris:#F7F8FA; --gris2:#E8ECF0; --vert:#5CB85C; --vert-bg:#DFF0D8;
+    --orange:#F0AD4E; --orange-bg:#FCF8E3; --rouge:#D9534F; --rouge-bg:#F2DEDE;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Calibri,Arial,sans-serif;color:var(--txt);background:#fff;line-height:1.5}
+  .topbar{height:7px;background:var(--prim-dark)}
+  header{background:#fff;padding:22px 28px;border-bottom:3px solid var(--or)}
+  .head-inner{max-width:1300px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:18px}
+  .brand h1{font-size:18px;letter-spacing:.6px;color:var(--prim-dark)}
+  .brand .sub{font-size:11px;color:var(--or);letter-spacing:2.5px;text-transform:uppercase;margin-top:3px}
+  .agent{font-size:12px;color:var(--prim-dark);text-align:right;line-height:1.55}
+  .agent strong{display:block;color:var(--prim-dark);font-size:13px;margin-bottom:2px}
+  .agent a{color:var(--sec);text-decoration:none}
+  .wrap{max-width:1300px;margin:0 auto;padding:24px 28px 60px}
+  .intro-block{background:var(--gris);border-left:5px solid var(--or);border-radius:8px;padding:20px 24px;margin-bottom:22px}
+  .intro-block h2{font-size:18px;color:var(--prim-dark);margin-bottom:10px}
+  .intro-block p{font-size:13.5px;color:var(--txt);margin-bottom:8px}
+  .intro-block .date{font-size:11.5px;color:#6B7280;font-style:italic;margin-top:6px}
+  .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+  .summary .kpi{background:#fff;border:1px solid var(--gris2);border-bottom:3px solid var(--or);border-radius:9px;padding:14px 16px;text-align:center}
+  .kpi .lbl{font-size:10.5px;color:#6B7280;text-transform:uppercase;letter-spacing:.4px}
+  .kpi .val{font-size:24px;font-weight:700;color:var(--prim-dark);margin-top:4px}
+  .controls{background:#fff;border:1px solid var(--gris2);border-radius:9px;padding:14px 18px;margin-bottom:18px;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+  .ctrl{display:flex;flex-direction:column;gap:5px}
+  .ctrl label{font-size:10.5px;color:#6B7280;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+  .ctrl select,.ctrl input{padding:7px 10px;border:1px solid var(--gris2);border-radius:6px;font-size:13px;font-family:inherit;background:#fff;min-width:120px}
+  .ctrl input[type=range]{min-width:170px}
+  .toggle{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;user-select:none}
+  .reset{background:var(--prim);color:#fff;border:none;padding:8px 18px;border-radius:6px;font-size:13px;cursor:pointer;font-weight:600}
+  .reset:hover{background:var(--prim-dark)}
+  .layout{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+  @media(max-width:1050px){.layout{grid-template-columns:1fr}}
+  .panel{background:#fff;border:1px solid var(--gris2);border-radius:10px;overflow:hidden}
+  .panel h3{background:var(--prim);color:#fff;padding:11px 16px;font-size:13.5px;display:flex;justify-content:space-between;align-items:center}
+  .panel h3 .count{font-size:11.5px;font-weight:400;opacity:.85}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th{background:var(--gris);text-align:left;padding:9px 7px;font-size:10.5px;text-transform:uppercase;letter-spacing:.3px;color:var(--prim);cursor:pointer;white-space:nowrap;border-bottom:2px solid var(--gris2);position:sticky;top:0}
+  th:hover{background:var(--gris2)}
+  td{padding:9px 7px;border-bottom:1px solid var(--gris2);vertical-align:middle}
+  tr:hover td{background:#f3f7fc}
+  tr.star td{background:#fcf4dd}
+  .tablebox{max-height:620px;overflow:auto}
+  .badge{display:inline-block;padding:2.5px 8px;border-radius:20px;font-size:10.5px;font-weight:700;white-space:nowrap}
+  .b-oui{background:var(--vert-bg);color:#2D7A2D}
+  .b-non{background:var(--rouge-bg);color:#A33632}
+  .b-nr{background:var(--gris2);color:#6B7280}
+  .prix{font-weight:700;color:var(--prim-dark);white-space:nowrap}
+  .lien{color:var(--sec);font-weight:700;text-decoration:none;white-space:nowrap}
+  .lien:hover{text-decoration:underline}
+  .secteur{font-weight:600;color:var(--prim-dark);font-size:12px}
+  .dist{font-size:10.5px;color:#6B7280;margin-top:2px}
+  .nous{font-size:11px;color:var(--or);font-weight:700;font-style:italic;white-space:nowrap}
+  #mapbox{position:relative;padding:0}
+  #map{position:relative;width:100%;height:520px;overflow:hidden;cursor:grab;
+    background-color:#e9eef1;
+    background-image:linear-gradient(rgba(31,78,121,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(31,78,121,.07) 1px,transparent 1px);
+    background-size:40px 40px}
+  #map .tile{position:absolute;width:256px;height:256px;user-select:none;pointer-events:none;z-index:1}
+  #map .circle1k{position:absolute;border:2px solid rgba(31,78,121,.85);background:rgba(46,117,182,.10);border-radius:50%;pointer-events:none;z-index:3}
+  #map .mk{position:absolute;width:18px;height:18px;border-radius:50%;border:2px solid #fff;transform:translate(-50%,-50%);box-shadow:0 1px 4px rgba(0,0,0,.45);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;text-decoration:none;z-index:5}
+  #map .mk:hover{width:24px;height:24px;z-index:10}
+  #map .mkstar{box-shadow:0 0 0 3px rgba(201,169,97,.7),0 1px 4px rgba(0,0,0,.45)}
+  #map .mkest{border-style:dashed;opacity:.92}
+  #map .cerclemk{position:absolute;transform:translate(-50%,-50%);color:var(--or);font-size:28px;line-height:1;-webkit-text-stroke:1.5px var(--prim-dark);z-index:6;pointer-events:none;font-weight:bold}
+  .mapctrl{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:5px;z-index:20}
+  .mapctrl button{width:32px;height:32px;border:none;background:#fff;border-radius:6px;font-size:18px;font-weight:700;cursor:pointer;box-shadow:0 1px 5px rgba(0,0,0,.3);color:var(--prim-dark);line-height:1}
+  .mapctrl button:hover{background:var(--gris2)}
+  .scalewrap{position:absolute;left:10px;bottom:10px;z-index:20;font-size:10px;color:var(--prim-dark);text-align:center}
+  .scalebar{height:7px;border:2px solid var(--prim-dark);border-top:none;background:rgba(255,255,255,.6)}
+  .attrib{position:absolute;bottom:2px;right:5px;font-size:9.5px;background:rgba(255,255,255,.82);padding:1px 5px;border-radius:3px;z-index:20;color:#333}
+  .maplegend{font-size:11px;color:#6B7280;padding:9px 16px;background:var(--gris);display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .maplegend span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .star{color:var(--or);font-weight:800}
+  footer{background:var(--gris);text-align:center;font-size:11.5px;color:var(--prim-dark);padding:24px;line-height:1.6;border-top:3px solid var(--or)}
+  footer strong{color:var(--prim-dark)}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<header>
+  <div class="head-inner">
+    <div class="brand">
+      <h1>PARDO &amp; CHARTIER</h1>
+      <div class="sub">Immobilier — by Le Pacte Immo</div>
+    </div>
+    <div class="agent">
+      <strong>Rémi MOREAU — votre conseiller</strong>
+      04 96 13 33 33 · <a href="mailto:remi@lepacteimmo.com">remi@lepacteimmo.com</a><br>
+      101 rue de l'Aiguillette · 13012 Marseille
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="intro-block">
+    <h2>Chère Madame TARDIEU,</h2>
+    <p>Veuillez trouver ci-dessous la <strong>sélection actualisée d'appartements</strong> répondant à votre cahier des charges&nbsp;: T3, T4 ou T5, surface de 60 à 90 m², avec terrasse et parking en propre souhaités, à 15 minutes à pied maximum du Cercle des Nageurs, pour un budget pouvant aller jusqu'à 450 000 €.</p>
+    <p>La sélection ci-dessous reprend les biens présents sur le marché public, filtrés et dédupliqués pour vous éviter les doublons. La <strong>carte interactive</strong> vous montre la position de chacun par rapport au Cercle des Nageurs (étoile dorée), et le cercle bleu matérialise votre périmètre de 1 km. Les biens marqués <span class="star">★</span> répondent à l'ensemble de vos critères (parking + terrasse + budget 330-420 K€).</p>
+    <p>Pour tout bien qui retient votre attention, je reste à votre disposition pour <strong>organiser une visite</strong> et vous accompagner dans la démarche. N'hésitez pas à me contacter directement.</p>
+    <p class="date">Sélection arrêtée au 27 mai 2026 · mise à jour quotidienne.</p>
+  </div>
+
+  <div class="summary" id="summary"></div>
+
+  <div class="controls">
+    <div class="ctrl"><label>Type</label><select id="fType"><option value="">Tous (T3 / T4 / T5)</option><option value="3">T3 uniquement</option><option value="4">T4 uniquement</option><option value="5">T5 uniquement</option></select></div>
+    <div class="ctrl"><label>Origine</label><select id="fSrc"><option value="">Toutes origines</option><option value="lbc">Annonces particuliers / agences (LBC)</option><option value="pap">De particulier à particulier (PAP)</option><option value="agence">Agences exclusives</option></select></div>
+    <div class="ctrl"><label>Parking</label><select id="fParking"><option value="">Tous</option><option value="oui">Avec parking confirmé</option></select></div>
+    <div class="ctrl"><label>Terrasse</label><select id="fTerrasse"><option value="">Toutes</option><option value="oui">Avec terrasse confirmée</option></select></div>
+    <div class="ctrl"><label>Étoile</label><label class="toggle"><input type="checkbox" id="fStar"> ★ Conformes uniquement</label></div>
+    <div class="ctrl"><label>Budget maximum : <span id="prixVal">450 000 €</span></label><input type="range" id="fPrix" min="200000" max="450000" step="5000" value="450000"></div>
+    <button class="reset" id="reset">Réinitialiser</button>
+  </div>
+
+  <div class="layout">
+    <div class="panel">
+      <h3>Biens sélectionnés <span class="count" id="tableCount"></span></h3>
+      <div class="tablebox">
+        <table id="tbl">
+          <thead><tr>
+            <th data-k="distance">Dist.</th>
+            <th data-k="secteur">Secteur</th>
+            <th data-k="pieces">Type</th>
+            <th data-k="surface">Surface</th>
+            <th data-k="prix">Prix</th>
+            <th data-k="prixM2">€/m²</th>
+            <th data-k="parking">Parking</th>
+            <th data-k="terrasse">Terrasse</th>
+            <th data-k="dpe">DPE</th>
+            <th>Référence</th>
+          </tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Carte des biens <span class="count">★ Cercle des Nageurs · périmètre 1 km</span></h3>
+      <div id="mapbox">
+        <div id="map"></div>
+        <div class="mapctrl"><button id="zin" title="Zoomer">+</button><button id="zout" title="Dézoomer">−</button><button id="zfit" title="Recentrer">⤢</button></div>
+        <div class="scalewrap"><div class="scalebar" id="scalebar" style="width:144px"></div><span id="scalelbl">1 km</span></div>
+        <div class="attrib">© OpenStreetMap</div>
+      </div>
+      <div class="maplegend">
+        <span><span class="dot" style="background:var(--vert)"></span> Parking confirmé</span>
+        <span><span class="dot" style="background:var(--rouge)"></span> Sans parking</span>
+        <span><span class="dot" style="background:#9098a5"></span> À confirmer</span>
+        <span><span class="star">★</span> Conforme</span>
+        <span><span style="border:2px dashed #888;border-radius:50%;width:11px;height:11px;display:inline-block"></span> position approchée</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>Pardo &amp; Chartier — Le Pacte Immo</strong> · Rémi MOREAU, votre conseiller<br>
+  04 96 13 33 33 · <a href="mailto:remi@lepacteimmo.com" style="color:var(--sec)">remi@lepacteimmo.com</a> · 101 rue de l'Aiguillette · 13012 Marseille<br>
+  <em>Document personnel établi pour Madame Corinne TARDIEU · Données issues du marché public, à confirmer lors de la visite · Fond de carte © OpenStreetMap contributors.</em>
+</footer>
+
+<script>
+const CERCLE={lat:43.2879,lng:5.3556};
+const BIENS=[{id:1,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3198911524",src:"LeBonCoin",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:72.3,prix:409000,prixM2:5657,dpe:"C",parking:true,terrasse:null,asc:null,lat:43.2875,lng:5.3551,distance:60,est:false}, {id:2,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3184085203",src:"LeBonCoin",secteur:"T4 · Saint-Lambert",quartier:"Saint-Lambert",pieces:4,surface:88,prix:419000,prixM2:4761,dpe:"E",parking:null,terrasse:null,asc:null,lat:43.28787,lng:5.357615,distance:163,est:false}, {id:3,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3173039757",src:"LeBonCoin",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:90,prix:429000,prixM2:4767,dpe:"B",parking:null,terrasse:true,asc:null,lat:43.288498,lng:5.357682,distance:181,est:false}, {id:4,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3177664140",src:"LeBonCoin",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:82,prix:349000,prixM2:4256,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.287468,lng:5.3587165,distance:256,est:false}, {id:5,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3196354643",src:"LeBonCoin (",secteur:"T3 · Roucas Blanc",quartier:"Roucas Blanc",pieces:3,surface:65,prix:350000,prixM2:5385,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.287415,lng:5.358765,distance:261,est:false}, {id:6,link:"https://www.pap.fr/annonces/appartement-marseille-7e-13007-r462401990",src:"PAP (de particulier)",secteur:"T3 · Marseille 7e · PAP",quartier:"7e (PAP)",pieces:3,surface:70,prix:320000,prixM2:4571,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.2855,lng:5.3552,distance:268,est:true}, {id:7,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3132463501",src:"LeBonCoin",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:72,prix:367500,prixM2:5104,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.28698,lng:5.359061,distance:298,est:false}, {id:8,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3156324574",src:"LeBonCoin (",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:72,prix:389000,prixM2:5403,dpe:"B",parking:true,terrasse:null,asc:null,lat:43.291225,lng:5.3554354,distance:369,est:false}, {id:9,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3138360074",src:"LeBonCoin",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:72,prix:265000,prixM2:3681,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.29033,lng:5.359621,distance:423,est:false}, {id:10,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3142907018",src:"LeBonCoin (",secteur:"T3 · Le Pharo",quartier:"Le Pharo",pieces:3,surface:57,prix:342000,prixM2:6000,dpe:"C",parking:true,terrasse:true,asc:null,lat:43.292267,lng:5.3567505,distance:494,est:false}, {id:11,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3204497282",src:"LeBonCoin",secteur:"T4 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:4,surface:80,prix:369000,prixM2:4612,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.291092,lng:5.361427,distance:590,est:false}, {id:12,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3177127399",src:"LeBonCoin",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:79,prix:399000,prixM2:5051,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.283615,lng:5.3600993,distance:599,est:false}, {id:13,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3192008999",src:"LeBonCoin",secteur:"T4 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:4,surface:86,prix:315000,prixM2:3663,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.29008,lng:5.362432,distance:603,est:false}, {id:14,link:"https://www.pap.fr/annonces/appartement-marseille-7e-13007-r463502926",src:"PAP (de particulier)",secteur:"T3 · Marseille 7e · PAP",quartier:"7e (PAP)",pieces:3,surface:79,prix:440000,prixM2:5570,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.2905,lng:5.3625,distance:628,est:true}, {id:15,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3166829373",src:"LeBonCoin",secteur:"T3 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:3,surface:73,prix:316000,prixM2:4329,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.29061,lng:5.3629727,distance:668,est:false}, {id:16,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3192398426",src:"LeBonCoin (",secteur:"T3 · Endoume",quartier:"Endoume",pieces:3,surface:65,prix:435000,prixM2:6692,dpe:"B",parking:true,terrasse:null,asc:null,lat:43.28366,lng:5.361535,distance:673,est:false}, {id:17,link:"",src:"Jinka",secteur:"T3 · Saint Lambert",quartier:"Saint Lambert",pieces:3,surface:81,prix:449000,prixM2:5543,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.29255334331978,lng:5.360979167401242,distance:677,est:true}, {id:18,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3202185949",src:"LeBonCoin",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:72.25,prix:435000,prixM2:6021,dpe:"B",parking:true,terrasse:null,asc:null,lat:43.29084,lng:5.36359,distance:724,est:false}, {id:19,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3184104348",src:"LeBonCoin",secteur:"T3 · Saint-Lambert",quartier:"Saint-Lambert",pieces:3,surface:56,prix:321000,prixM2:5732,dpe:"C",parking:true,terrasse:null,asc:null,lat:43.288788,lng:5.364729,distance:745,est:false}, {id:20,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3175969638",src:"LeBonCoin",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:74,prix:419600,prixM2:5670,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.289318,lng:5.3647285,distance:755,est:false}, {id:21,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3202325112",src:"LeBonCoin",secteur:"T4 · Saint-Lambert",quartier:"Saint-Lambert",pieces:4,surface:80,prix:298000,prixM2:3725,dpe:"D",parking:false,terrasse:null,asc:null,lat:43.28819,lng:5.36497,distance:759,est:false}, {id:22,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3181066061",src:"LeBonCoin",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:74,prix:210000,prixM2:2838,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.28543,lng:5.36454,distance:773,est:false}, {id:23,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3191607305",src:"LeBonCoin (",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:63,prix:420000,prixM2:6667,dpe:"D",parking:null,terrasse:true,asc:null,lat:43.288216,lng:5.3653674,distance:791,est:false}, {id:24,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3196591569",src:"LeBonCoin",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:58,prix:224900,prixM2:3878,dpe:"B",parking:null,terrasse:null,asc:null,lat:43.28781,lng:5.3668838,distance:913,est:false}, {id:25,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3139925268",src:"LeBonCoin",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:88,prix:399000,prixM2:4534,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.289272,lng:5.366858,distance:923,est:false}, {id:26,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3187726361",src:"LeBonCoin",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:85,prix:376000,prixM2:4424,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.289352,lng:5.366887,distance:927,est:false}, {id:27,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3202377075",src:"LeBonCoin",secteur:"T5 · Saint-Victor",quartier:"Saint-Victor",pieces:5,surface:85,prix:369000,prixM2:4341,dpe:"E",parking:null,terrasse:true,asc:null,lat:43.290497,lng:5.3665757,distance:934,est:false}, {id:28,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3196606721",src:"LeBonCoin",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:79,prix:450000,prixM2:5696,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.28141,lng:5.363042,distance:940,est:false}, {id:29,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3035573515",src:"LeBonCoin (",secteur:"T3 · Le Pharo",quartier:"Le Pharo",pieces:3,surface:61,prix:275000,prixM2:4508,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.29195,lng:5.366136,distance:964,est:false}];
+const pLabel=v=>v===true?"OUI":v===false?"NON":"À confirmer";
+const pClass=v=>v===true?"b-oui":v===false?"b-non":"b-nr";
+const pColor=v=>v===true?"#5CB85C":v===false?"#D9534F":"#9098a5";
+const isStar=b=>b.parking===true&&b.terrasse===true&&b.prix>=330000&&b.prix<=420000;
+const fmtP=p=>p.toLocaleString('fr-FR')+" €";
+const hasSrc=(b,s)=>{const url=(b.link||"").toLowerCase();const src=(b.src||"").toLowerCase();return url.includes(s)||src.includes(s);};
+let sortKey="distance",sortDir=1,currentData=[];
+
+function getFiltered(){
+  const fty=document.getElementById('fType').value,fp=document.getElementById('fParking').value,
+    ft=document.getElementById('fTerrasse').value,fs=document.getElementById('fSrc').value,
+    fstar=document.getElementById('fStar').checked,
+    px=+document.getElementById('fPrix').value;
+  return BIENS.filter(b=>{
+    if(fty&&String(b.pieces)!==fty)return false;
+    if(fp==="oui"&&b.parking!==true)return false;
+    if(ft==="oui"&&b.terrasse!==true)return false;
+    if(fs==="lbc"&&!hasSrc(b,"leboncoin"))return false;
+    if(fs==="pap"&&!hasSrc(b,"pap"))return false;
+    if(fs==="agence"&&!hasSrc(b,"source agence"))return false;
+    if(fstar&&!isStar(b))return false;
+    if(b.prix>px)return false;
+    return true;
+  }).sort((a,b)=>{
+    let va=a[sortKey],vb=b[sortKey];
+    if(sortKey==="secteur")return a.secteur.localeCompare(b.secteur)*sortDir;
+    if(sortKey==="parking"||sortKey==="terrasse"){const o={true:0,null:1,false:2};return (o[a[sortKey]]-o[b[sortKey]])*sortDir;}
+    if(va==null)va=999999;if(vb==null)vb=999999;
+    return (va-vb)*sortDir;
+  });
+}
+function renderSummary(){
+  const tot=BIENS.length;
+  const t3=BIENS.filter(b=>b.pieces===3).length;
+  const t4=BIENS.filter(b=>b.pieces===4).length;
+  const t5=BIENS.filter(b=>b.pieces===5).length;
+  const stars=BIENS.filter(isStar).length;
+  const prix=BIENS.map(b=>b.prix).sort((a,b)=>a-b),med=prix[Math.floor(prix.length/2)];
+  document.getElementById('summary').innerHTML=`
+    <div class="kpi"><div class="lbl">Biens proposés</div><div class="val">${tot}</div></div>
+    <div class="kpi"><div class="lbl">T3</div><div class="val">${t3}</div></div>
+    <div class="kpi"><div class="lbl">T4</div><div class="val">${t4}</div></div>
+    <div class="kpi"><div class="lbl">T5</div><div class="val">${t5}</div></div>
+    <div class="kpi"><div class="lbl">★ Conformes</div><div class="val" style="color:var(--or)">${stars}</div></div>
+    <div class="kpi"><div class="lbl">Prix médian</div><div class="val">${Math.round(med/1000)} K€</div></div>`;
+}
+function render(){
+  const data=getFiltered();currentData=data;
+  document.getElementById('tbody').innerHTML=data.map(b=>{
+    const star=isStar(b);
+    const ref = b.link ? `<a class="lien" href="${b.link}" target="_blank" rel="noopener">Voir l'annonce ↗</a>` : `<span class="nous">Nous consulter</span>`;
+    return `<tr class="${star?'star':''}">
+      <td>${(b.est?'~':'')+b.distance+' m'}</td>
+      <td><div class="secteur">${star?'<span class="star">★</span> ':''}${b.quartier}</div><div class="dist">${b.src}${b.est?' · pos. approchée':''}</div></td>
+      <td>T${b.pieces}</td>
+      <td>${b.surface} m²</td>
+      <td class="prix">${fmtP(b.prix)}</td>
+      <td>${b.prixM2.toLocaleString('fr-FR')}</td>
+      <td><span class="badge ${pClass(b.parking)}">${pLabel(b.parking)}</span></td>
+      <td><span class="badge ${pClass(b.terrasse)}">${pLabel(b.terrasse)}</span></td>
+      <td>${b.dpe}</td>
+      <td>${ref}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('tableCount').textContent=data.length+" bien"+(data.length>1?"s":"");
+  renderMap();
+}
+
+const TILE=256;
+let mapView={lat:CERCLE.lat,lng:CERCLE.lng,z:14};
+function project(lat,lng,z){
+  const s=Math.sin(lat*Math.PI/180);
+  const x=(lng+180)/360*Math.pow(2,z);
+  const y=(0.5-Math.log((1+s)/(1-s))/(4*Math.PI))*Math.pow(2,z);
+  return {x:x*TILE,y:y*TILE};
+}
+function metersPerPixel(lat,z){return 156543.03392*Math.cos(lat*Math.PI/180)/Math.pow(2,z);}
+function renderMap(){
+  const map=document.getElementById('map');if(!map)return;
+  const W=map.clientWidth||500,H=map.clientHeight||520,z=mapView.z,n=Math.pow(2,z);
+  const c=project(mapView.lat,mapView.lng,z),originX=c.x-W/2,originY=c.y-H/2;
+  let html='';
+  const x0=Math.floor(originX/TILE),x1=Math.floor((originX+W)/TILE);
+  const y0=Math.floor(originY/TILE),y1=Math.floor((originY+H)/TILE);
+  for(let tx=x0;tx<=x1;tx++)for(let ty=y0;ty<=y1;ty++){
+    if(ty<0||ty>=n)continue;
+    const wx=((tx%n)+n)%n,sub="abc"[((tx%3)+3)%3];
+    const px=tx*TILE-originX,py=ty*TILE-originY;
+    html+=`<img class="tile" src="https://${sub}.tile.openstreetmap.org/${z}/${wx}/${ty}.png" style="left:${px}px;top:${py}px" onerror="this.style.display='none'" draggable="false">`;
+  }
+  map.innerHTML=html;
+  const cc=project(CERCLE.lat,CERCLE.lng,z),ccx=cc.x-originX,ccy=cc.y-originY;
+  const rpx=1000/metersPerPixel(CERCLE.lat,z);
+  const circ=document.createElement('div');circ.className='circle1k';
+  circ.style.cssText=`left:${ccx-rpx}px;top:${ccy-rpx}px;width:${rpx*2}px;height:${rpx*2}px`;
+  map.appendChild(circ);
+  currentData.forEach(b=>{
+    if(b.lat==null)return;
+    const p=project(b.lat,b.lng,z),mx=p.x-originX,my=p.y-originY;
+    if(mx<-40||mx>W+40||my<-40||my>H+40)return;
+    const el=document.createElement(b.link?'a':'div');
+    if(b.link){el.href=b.link;el.target='_blank';el.rel='noopener';}
+    el.className='mk'+(isStar(b)?' mkstar':'')+(b.est?' mkest':'');
+    el.style.cssText=`left:${mx}px;top:${my}px;background:${pColor(b.parking)}`;
+    el.title=`${b.secteur} · T${b.pieces} · ${b.surface} m² · ${fmtP(b.prix)} · Parking ${pLabel(b.parking)} · Terrasse ${pLabel(b.terrasse)} · ${b.est?'~':''}${b.distance} m du Cercle`;
+    el.innerHTML=isStar(b)?'★':'';
+    map.appendChild(el);
+  });
+  const star=document.createElement('div');star.className='cerclemk';
+  star.style.cssText=`left:${ccx}px;top:${ccy}px`;star.title='Cercle des Nageurs';star.textContent='★';
+  map.appendChild(star);
+  const mpp=metersPerPixel(CERCLE.lat,z);let target=500,wpx=target/mpp;
+  if(wpx>170){target=250;}else if(wpx<70){target=1000;}
+  wpx=target/mpp;
+  const sb=document.getElementById('scalebar'),sl=document.getElementById('scalelbl');
+  if(sb){sb.style.width=wpx.toFixed(0)+'px';sl.textContent=target>=1000?(target/1000)+' km':target+' m';}
+}
+(function initMap(){
+  const map=document.getElementById('map');
+  let drag=null;
+  map.addEventListener('mousedown',e=>{drag={x:e.clientX,y:e.clientY,lat:mapView.lat,lng:mapView.lng,moved:false};map.style.cursor='grabbing';});
+  window.addEventListener('mousemove',e=>{
+    if(!drag)return;
+    const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+    if(Math.abs(dx)+Math.abs(dy)>3)drag.moved=true;
+    const m=metersPerPixel(drag.lat,mapView.z);
+    mapView.lng=drag.lng-dx*m/(111320*Math.cos(drag.lat*Math.PI/180));
+    mapView.lat=drag.lat+dy*m/110540;
+    renderMap();
+  });
+  window.addEventListener('mouseup',()=>{if(drag){map.style.cursor='grab';drag=null;}});
+  map.addEventListener('click',e=>{if(drag&&drag.moved)e.preventDefault();},true);
+  map.addEventListener('wheel',e=>{e.preventDefault();mapView.z=Math.max(11,Math.min(18,mapView.z+(e.deltaY<0?1:-1)));renderMap();},{passive:false});
+  document.getElementById('zin').addEventListener('click',()=>{mapView.z=Math.min(18,mapView.z+1);renderMap();});
+  document.getElementById('zout').addEventListener('click',()=>{mapView.z=Math.max(11,mapView.z-1);renderMap();});
+  document.getElementById('zfit').addEventListener('click',()=>{mapView={lat:CERCLE.lat,lng:CERCLE.lng,z:14};renderMap();});
+  let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(renderMap,150);});
+})();
+
+document.querySelectorAll('th[data-k]').forEach(th=>th.addEventListener('click',()=>{
+  const k=th.dataset.k;if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1;}render();}));
+['fType','fParking','fTerrasse','fSrc','fStar','fPrix'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{
+  document.getElementById('prixVal').textContent=(+document.getElementById('fPrix').value).toLocaleString('fr-FR')+" €";render();}));
+document.getElementById('reset').addEventListener('click',()=>{
+  document.getElementById('fType').value="";document.getElementById('fParking').value="";document.getElementById('fTerrasse').value="";
+  document.getElementById('fSrc').value="";document.getElementById('fStar').checked=false;
+  document.getElementById('fPrix').value=450000;document.getElementById('prixVal').textContent="450 000 €";
+  sortKey="distance";sortDir=1;render();});
+
+renderSummary();render();
+</script>
+</body>
+</html>
