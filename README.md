@@ -13,9 +13,9 @@ pour Madame TARDIEU.
 
 ## Mise à jour
 
-Sélection mise à jour le **3 juin 2026** — 44 biens (27 T3 / 14 T4 / 3 T5),
-6 avec parking confirmé, **3 ★ conformes** (parking + terrasse + budget 330-420 K€) :
-T4 7e 72 m² 409 K€, T3 7e 57 m² 342 K€, T3 Catalans-Pharo 71 m² 389 K€.
+Sélection mise à jour le **4 juin 2026** — 53 biens (34 T3 / 15 T4 / 4 T5),
+5 avec parking confirmé, **2 ★ conformes** (parking + terrasse + budget 330-420 K€) :
+T4 Catalans-Pharo 72 m² 409 K€, T3 Saint-Victor 71 m² 389 K€.
 
 
 ## Page

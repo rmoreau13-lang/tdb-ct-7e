@@ -3,45 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pardo &amp; Chartier — Sélection d'appartements · Mme TARDIEU</title>
+<title>Sélection d'appartements — Mme Corinne TARDIEU · Pardo &amp; Chartier</title>
 <style>
   :root{ color-scheme: light;
     --prim:#1F4E79; --prim-dark:#152D4D; --sec:#2E75B6; --or:#C9A961;
     --txt:#1A1A2E; --gris:#F7F8FA; --gris2:#E8ECF0; --vert:#5CB85C; --vert-bg:#DFF0D8;
-    --orange:#F0AD4E; --orange-bg:#FCF8E3; --rouge:#D9534F; --rouge-bg:#F2DEDE;
-  }
+    --rouge:#D9534F; --rouge-bg:#F2DEDE;}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',Calibri,Arial,sans-serif;color:var(--txt);background:#f4f6f8;line-height:1.45}
+  body{font-family:'Segoe UI',Calibri,Arial,sans-serif;color:var(--txt);background:#fff;line-height:1.5}
   .topbar{height:6px;background:var(--prim-dark)}
   header{background:#fff;padding:20px 26px;border-bottom:3px solid var(--or);display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
   .brand h1{font-size:20px;letter-spacing:1px;color:var(--prim-dark)}
-  .brand .sub{font-size:10px;color:var(--or);letter-spacing:2.5px;text-transform:uppercase;margin-top:3px}
-  .agent{font-size:12px;color:#445;text-align:right;line-height:1.6}
-  .agent strong{color:var(--prim-dark)}
-  .wrap{max-width:1200px;margin:0 auto;padding:22px 26px 60px}
-  .hero{background:#fff;border-radius:12px;padding:22px 26px;margin-bottom:18px;border-left:5px solid var(--or);box-shadow:0 1px 3px rgba(0,0,0,.05)}
-  .hero h2{font-size:21px;color:var(--prim-dark);margin-bottom:8px}
-  .hero p{font-size:13.5px;color:#3a4250;margin-bottom:8px}
-  .hero .crit{font-size:12.5px;color:#5a6473;background:var(--gris);border-radius:8px;padding:10px 14px;margin-top:10px}
-  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
-  .kpi{background:#fff;border-radius:10px;padding:14px 16px;border-bottom:3px solid var(--or);box-shadow:0 1px 3px rgba(0,0,0,.05)}
-  .kpi .lbl{font-size:10px;color:#6B7280;text-transform:uppercase;letter-spacing:.4px}
-  .kpi .val{font-size:25px;font-weight:700;color:var(--prim-dark);margin-top:3px}
-  .kpi .val.gold{color:var(--or)}
-  .kpi .val.green{color:var(--vert)}
-  .kpi .sub{font-size:9.5px;color:#9098a5;margin-top:1px}
-  .controls{background:#fff;border-radius:10px;padding:15px 17px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-  .ctrl{display:flex;flex-direction:column;gap:4px}
-  .ctrl label{font-size:10px;color:#6B7280;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+  .brand .sub{font-size:10px;color:var(--or);letter-spacing:3px;text-transform:uppercase;margin-top:3px}
+  .agent{font-size:11.5px;color:#4a5568;text-align:right;line-height:1.6}
+  .agent b{color:var(--prim-dark)}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px 26px 60px}
+  .doctitle{font-size:23px;color:var(--prim-dark);margin-bottom:4px}
+  .docsub{font-size:12.5px;color:#6B7280;font-style:italic;margin-bottom:18px}
+  .intro{background:var(--gris);border-left:4px solid var(--or);border-radius:8px;padding:16px 20px;font-size:14px;color:#2c3e50;margin-bottom:22px}
+  .intro p{margin-bottom:9px}.intro p:last-child{margin-bottom:0}
+  .summary{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+  .scard{background:var(--prim);color:#fff;border-radius:10px;padding:12px 18px;flex:1;min-width:120px}
+  .scard .v{font-size:25px;font-weight:700}.scard .l{font-size:11px;opacity:.85;text-transform:uppercase;letter-spacing:.4px}
+  .scard.gold{background:var(--or)}
+  .controls{background:var(--gris);border-radius:10px;padding:14px 16px;margin-bottom:18px;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+  .ctrl{display:flex;flex-direction:column;gap:5px}
+  .ctrl label{font-size:10px;color:#6B7280;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
   .ctrl select,.ctrl input{padding:7px 10px;border:1px solid var(--gris2);border-radius:6px;font-size:13px;font-family:inherit;background:#fff;min-width:120px}
-  .ctrl input[type=range]{min-width:160px}
+  .ctrl input[type=range]{min-width:170px}
   .reset{background:var(--prim);color:#fff;border:none;padding:8px 16px;border-radius:6px;font-size:13px;cursor:pointer;font-weight:600}
   .reset:hover{background:var(--prim-dark)}
-  .layout{display:grid;grid-template-columns:1fr 460px;gap:16px}
+  .layout{display:grid;grid-template-columns:1fr 460px;gap:18px}
   @media(max-width:1080px){.layout{grid-template-columns:1fr}}
-  .panel{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-  .panel h3{background:var(--prim);color:#fff;padding:12px 16px;font-size:14px;display:flex;justify-content:space-between;align-items:center}
-  .panel h3 .count{font-size:11px;font-weight:400;opacity:.85}
+  .panel{background:#fff;border:1px solid var(--gris2);border-radius:10px;overflow:hidden}
+  .panel h3{background:var(--prim);color:#fff;padding:11px 16px;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+  .panel h3 .count{font-size:11.5px;font-weight:400;opacity:.85}
   table{width:100%;border-collapse:collapse;font-size:12.5px}
   th{background:var(--gris);text-align:left;padding:9px 7px;font-size:10px;text-transform:uppercase;letter-spacing:.3px;color:var(--prim);cursor:pointer;white-space:nowrap;border-bottom:2px solid var(--gris2);position:sticky;top:0}
   th:hover{background:var(--gris2)}
@@ -49,19 +45,17 @@
   tr:hover td{background:#f3f7fc}
   .tablebox{max-height:600px;overflow:auto}
   .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap}
-  .b-oui{background:var(--vert-bg);color:#2D7A2D}
-  .b-non{background:var(--rouge-bg);color:#A33632}
-  .b-nr{background:var(--gris2);color:#6B7280}
-  .b-new{background:var(--or);color:#fff;letter-spacing:.3px}
-  tr.isnew td{background:#fffaf0}
+  .b-oui{background:var(--vert-bg);color:#2D7A2D}.b-non{background:var(--rouge-bg);color:#A33632}.b-nr{background:var(--gris2);color:#6B7280}
+  .b-new{background:var(--or);color:#fff}
+  .star{color:var(--or)}
   .prix{font-weight:700;color:var(--prim-dark);white-space:nowrap}
   .secteur{font-weight:600;color:var(--prim-dark);font-size:12px}
   .sub2{font-size:10px;color:#6B7280}
   .lien{color:var(--sec);font-weight:700;text-decoration:none;white-space:nowrap}
   .lien:hover{text-decoration:underline}
-  .nous{color:#6B7280;font-size:11px;font-style:italic;white-space:nowrap}
+  .nous{color:#6B7280;font-style:italic;font-size:11px;white-space:nowrap}
   #mapbox{position:relative;padding:0}
-  #map{position:relative;width:100%;height:520px;overflow:hidden;cursor:grab;background-color:#e9eef1}
+  #map{position:relative;width:100%;height:560px;overflow:hidden;cursor:grab;background-color:#e9eef1}
   #map .tile{position:absolute;width:256px;height:256px;user-select:none;pointer-events:none;z-index:1}
   #map .circle1k{position:absolute;border:2px solid rgba(31,78,121,.8);background:rgba(46,117,182,.10);border-radius:50%;pointer-events:none;z-index:3}
   #map .mk{position:absolute;width:16px;height:16px;border-radius:50%;border:2px solid #fff;transform:translate(-50%,-50%);box-shadow:0 1px 4px rgba(0,0,0,.45);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;text-decoration:none;z-index:5}
@@ -70,15 +64,14 @@
   #map .mkest{border-style:dashed;opacity:.92}
   #map .cerclemk{position:absolute;transform:translate(-50%,-50%);color:var(--or);font-size:24px;line-height:1;-webkit-text-stroke:1px var(--prim-dark);z-index:6;pointer-events:none}
   .mapctrl{position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:4px;z-index:20}
-  .mapctrl button{width:30px;height:30px;border:none;background:#fff;border-radius:6px;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.3);color:var(--prim-dark);line-height:1}
-  .mapctrl button:hover{background:var(--gris2)}
+  .mapctrl button{width:30px;height:30px;border:none;background:#fff;border-radius:6px;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.3);color:var(--prim-dark)}
   .attrib{position:absolute;bottom:2px;right:4px;font-size:9px;background:rgba(255,255,255,.78);padding:1px 5px;border-radius:3px;z-index:20;color:#333}
-  .maplegend{font-size:10.5px;color:#6B7280;padding:9px 16px;background:var(--gris);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .maplegend{font-size:10.5px;color:#6B7280;padding:9px 14px;background:var(--gris);display:flex;gap:16px;flex-wrap:wrap;align-items:center}
   .maplegend span{display:inline-flex;align-items:center;gap:4px}
   .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
-  footer{background:var(--prim-dark);color:#cdd7e3;font-size:12px;padding:24px 26px;margin-top:30px;line-height:1.7}
-  footer strong{color:#fff}
-  footer a{color:var(--or);text-decoration:none}
+  footer{border-top:3px solid var(--or);margin-top:34px;padding:22px 26px;font-size:12px;color:#4a5568;background:var(--gris)}
+  footer b{color:var(--prim-dark)}
+  .disc{font-size:10.5px;color:#9098a5;margin-top:10px;font-style:italic}
 </style>
 </head>
 <body>
@@ -89,38 +82,45 @@
     <div class="sub">Immobilier — by Le Pacte Immo</div>
   </div>
   <div class="agent">
-    <strong>Rémi MOREAU</strong> — Conseiller immobilier<br>
-    Tél. 04 96 13 33 33 · <a href="mailto:remi@lepacteimmo.com" style="color:var(--sec);text-decoration:none">remi@lepacteimmo.com</a><br>
+    <b>Rémi MOREAU</b> — Conseiller en immobilier<br>
+    Tél. 04 96 13 33 33 · remi@lepacteimmo.com<br>
     101 rue de l'Aiguillette, 13012 Marseille
   </div>
 </header>
+
 <div class="wrap">
-  <div class="hero">
-    <h2>Votre sélection d'appartements</h2>
-    <p>Chère Madame TARDIEU,</p>
-    <p>Voici la sélection d'appartements correspondant à votre recherche, à moins de 15 minutes à pied du Cercle des Nageurs (rayon de 1 000 m). Chaque bien est situé sur la carte ci-dessous et peut être filtré par type, budget, parking ou terrasse. Je reste à votre entière disposition pour organiser les visites des biens qui retiennent votre attention.</p>
-    <div class="crit"><strong>Votre cahier des charges :</strong> appartement T3 / T4 / T5, environ 60 à 90 m², terrasse et parking en propre souhaités, ascenseur apprécié, dans un budget jusqu'à 450 000 €. La mention <strong>★</strong> signale les biens réunissant parking, terrasse et un budget de 330 à 420 K€. Le parking, la terrasse et l'ascenseur sont indiqués d'après les annonces (OUI / NON / à confirmer) et seront vérifiés lors de la visite.</div>
+  <div class="doctitle">Votre sélection d'appartements</div>
+  <div class="docsub">Secteur Cercle des Nageurs — Marseille 7ᵉ · Sélection arrêtée au 04/06/2026</div>
+
+  <div class="intro">
+    <p>Madame,</p>
+    <p>Vous trouverez ci-dessous la sélection d'appartements correspondant à votre recherche : un <b>T3, T4 ou T5</b> d'environ 60 à 90 m², avec terrasse et stationnement souhaités, situé à moins de quinze minutes à pied du <b>Cercle des Nageurs</b> (rayon d'environ 1 km), pour un budget pouvant aller jusqu'à 450 000 €.</p>
+    <p>Chaque bien est positionné sur la carte ci-contre. Vous pouvez filtrer la liste par type, stationnement, terrasse et budget. Les informations de parking, terrasse et ascenseur proviennent des annonces et sont à confirmer lors des visites. Je reste à votre entière disposition pour organiser les rendez-vous et répondre à vos questions.</p>
   </div>
-  <div class="kpis" id="kpis"></div>
+
+  <div class="summary" id="summary"></div>
+
   <div class="controls">
     <div class="ctrl"><label>Type</label><select id="fType"><option value="">Tous</option><option value="3">T3</option><option value="4">T4</option><option value="5">T5</option></select></div>
-    <div class="ctrl"><label>Origine</label><select id="fOrigine"><option value="">Toutes</option></select></div>
-    <div class="ctrl"><label>Parking</label><select id="fParking"><option value="">Tous</option><option value="oui">OUI seulement</option><option value="non">Sans NON</option></select></div>
-    <div class="ctrl"><label>Terrasse</label><select id="fTerrasse"><option value="">Toutes</option><option value="oui">OUI seulement</option><option value="non">Sans NON</option></select></div>
+    <div class="ctrl"><label>Origine</label><select id="fSrc"><option value="">Toutes</option></select></div>
+    <div class="ctrl"><label>Parking</label><select id="fParking"><option value="">Tous</option><option value="oui">Avec parking</option></select></div>
+    <div class="ctrl"><label>Terrasse</label><select id="fTerrasse"><option value="">Toutes</option><option value="oui">Avec terrasse</option></select></div>
     <div class="ctrl"><label>Budget max : <span id="prixVal">450 000 €</span></label><input type="range" id="fPrix" min="200000" max="450000" step="5000" value="450000"></div>
     <button class="reset" id="reset">Réinitialiser</button>
   </div>
+
   <div class="layout">
     <div class="panel">
-      <h3>Appartements sélectionnés <span class="count" id="tableCount"></span></h3>
+      <h3>Biens sélectionnés <span class="count" id="tableCount"></span></h3>
       <div class="tablebox">
         <table id="tbl">
           <thead><tr>
             <th data-k="secteur">Secteur</th>
+            <th data-k="pieces">Type</th>
             <th data-k="surface">Surface</th>
             <th data-k="prix">Prix</th>
             <th data-k="prixM2">€/m²</th>
-            <th data-k="distance">Distance</th>
+            <th data-k="distance">À pied*</th>
             <th data-k="parking">Parking</th>
             <th data-k="terrasse">Terrasse</th>
             <th data-k="asc">Asc.</th>
@@ -131,140 +131,118 @@
         </table>
       </div>
       <div class="maplegend">
-        <span><span class="dot" style="background:var(--vert)"></span> Parking OUI</span>
-        <span><span class="dot" style="background:var(--rouge)"></span> Parking NON</span>
-        <span><span class="dot" style="background:#9098a5"></span> à confirmer</span>
-        <span>★ bien prioritaire</span>
-        <span><span style="border:2px dashed #888;border-radius:50%;width:11px;height:11px;display:inline-block"></span> position indicative</span>
+        <span><span class="dot" style="background:var(--vert)"></span> Parking</span>
+        <span><span class="dot" style="background:#9098a5"></span> À confirmer</span>
+        <span class="star">★</span> coup de cœur (parking + terrasse + budget 330–420 K€)
+        <span><span style="border:2px dashed #888;border-radius:50%;width:11px;height:11px;display:inline-block"></span> position approximative</span>
       </div>
     </div>
     <div class="panel">
-      <h3>Carte des biens <span class="count">★ Cercle des Nageurs · cercle = 1 km</span></h3>
+      <h3>Carte des biens <span class="count">★ = Cercle des Nageurs · cercle = 1 km</span></h3>
       <div id="mapbox">
         <div id="map"></div>
-        <div class="mapctrl"><button id="zin" title="Zoomer">+</button><button id="zout" title="Dézoomer">−</button><button id="zfit" title="Recentrer">⤢</button></div>
+        <div class="mapctrl"><button id="zin">+</button><button id="zout">−</button><button id="zfit">⤢</button></div>
         <div class="attrib">© OpenStreetMap</div>
       </div>
-      <div class="maplegend"><span>Faites glisser la carte pour vous déplacer · molette ou +/− pour zoomer.</span></div>
     </div>
   </div>
 </div>
+
 <footer>
-  <strong>PARDO &amp; CHARTIER</strong> — by Le Pacte Immo<br>
-  Rémi MOREAU, Conseiller immobilier · Tél. <strong>04 96 13 33 33</strong> · <a href="mailto:remi@lepacteimmo.com">remi@lepacteimmo.com</a> · 101 rue de l'Aiguillette, 13012 Marseille<br>
-  Sélection établie à votre intention le 03/06/2026. Prix d'affichage des annonces, à confirmer. Fond de carte © OpenStreetMap.
+  <b>Pardo &amp; Chartier — by Le Pacte Immo</b><br>
+  Votre conseiller : <b>Rémi MOREAU</b> · Tél. 04 96 13 33 33 · remi@lepacteimmo.com · 101 rue de l'Aiguillette, 13012 Marseille<br>
+  <div class="disc">* Distance à vol d'oiseau jusqu'au Cercle des Nageurs, à titre indicatif. Prix, surfaces et caractéristiques communiqués sous réserve de vérification ; informations non contractuelles. Disponibilité des biens à confirmer.</div>
 </footer>
+
 <script>
 const CERCLE={lat:43.2879,lng:5.3556};
-
-const BIENS=[{id:1,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3198911524",origine:"LeBonCoin",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:72.3,prix:409000,prixM2:5657,dpe:"C",parking:true,terrasse:null,asc:null,lat:43.2875,lng:5.3551,distance:60,perim:true,est:false,new:false}, {id:2,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3184085203",origine:"LeBonCoin",secteur:"T4 · Saint-Lambert",quartier:"Saint-Lambert",pieces:4,surface:88,prix:419000,prixM2:4761,dpe:"E",parking:null,terrasse:null,asc:true,lat:43.28782,lng:5.357619,distance:164,perim:true,est:false,new:false}, {id:3,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3173039757",origine:"LeBonCoin",secteur:"T3 · Saint-Lambert",quartier:"Saint-Lambert",pieces:3,surface:90,prix:429000,prixM2:4767,dpe:"B",parking:null,terrasse:null,asc:true,lat:43.288548,lng:5.35765,distance:181,perim:true,est:false,new:false}, {id:4,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3155236592",origine:"LeBonCoin",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:72,prix:340000,prixM2:4722,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.28646,lng:5.3537297,distance:220,perim:true,est:false,new:true}, {id:5,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3193206036",origine:"LeBonCoin",secteur:"T3 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:3,surface:90,prix:410000,prixM2:4556,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.2901,lng:5.3554115,distance:245,perim:true,est:false,new:false}, {id:6,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3177664140",origine:"LeBonCoin",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:82,prix:349000,prixM2:4256,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.28756,lng:5.3586946,distance:253,perim:true,est:false,new:false}, {id:7,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3132463501",origine:"LeBonCoin",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:72,prix:367500,prixM2:5104,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.28698,lng:5.3589964,distance:293,perim:true,est:false,new:false}, {id:8,link:null,origine:"Sélection agence",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:60,prix:325000,prixM2:5417,dpe:"B",parking:null,terrasse:null,asc:null,lat:43.288,lng:5.36,distance:356,perim:true,est:true,new:false}, {id:9,link:null,origine:"Sélection agence",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:75,prix:389000,prixM2:5187,dpe:"B",parking:null,terrasse:null,asc:null,lat:43.288,lng:5.36,distance:356,perim:true,est:true,new:false}, {id:10,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/266775759.htm",origine:"SeLoger",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:58,prix:328000,prixM2:5655,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.288,lng:5.36,distance:356,perim:true,est:true,new:false}, {id:11,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/232093519.htm",origine:"SeLoger",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:75.6,prix:330000,prixM2:4365,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.288,lng:5.36,distance:356,perim:true,est:true,new:false}, {id:12,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/262719701.htm",origine:"SeLoger",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:78.4,prix:349000,prixM2:4452,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.288,lng:5.36,distance:356,perim:true,est:true,new:false}, {id:13,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/269437657.htm",origine:"SeLoger",secteur:"T3 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:3,surface:63.5,prix:309000,prixM2:4866,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.29029,lng:5.35903,distance:384,perim:true,est:true,new:false}, {id:14,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3142907018",origine:"LeBonCoin",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:57,prix:342000,prixM2:6000,dpe:"C",parking:true,terrasse:null,asc:true,lat:43.292313,lng:5.3566732,distance:498,perim:true,est:false,new:false}, {id:15,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3147811323",origine:"LeBonCoin",secteur:"T3 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:3,surface:71,prix:389000,prixM2:5479,dpe:"B",parking:true,terrasse:null,asc:true,lat:43.29046,lng:5.3616567,distance:567,perim:true,est:false,new:false}, {id:16,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3124333642",origine:"LeBonCoin",secteur:"T3 · Endoume",quartier:"Endoume",pieces:3,surface:71,prix:420000,prixM2:5915,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.284714,lng:5.3501034,distance:569,perim:true,est:false,new:false}, {id:17,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3175969638",origine:"LeBonCoin + SeLoger",secteur:"T3 · Bompard",quartier:"Bompard",pieces:3,surface:74,prix:419600,prixM2:5670,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.283325,lng:5.359158,distance:585,perim:true,est:false,new:false}, {id:18,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3204497282",origine:"LeBonCoin",secteur:"T4 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:4,surface:80,prix:369000,prixM2:4612,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.2911,lng:5.361397,distance:589,perim:true,est:false,new:false}, {id:19,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3131433406",origine:"LeBonCoin",secteur:"T3 · Roucas-Blanc",quartier:"Roucas-Blanc",pieces:3,surface:74,prix:366000,prixM2:4946,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.283504,lng:5.351211,distance:604,perim:true,est:false,new:false}, {id:20,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3177127399",origine:"LeBonCoin",secteur:"T4 · Bompard",quartier:"Bompard",pieces:4,surface:79,prix:399000,prixM2:5051,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.283585,lng:5.3601556,distance:605,perim:true,est:false,new:false}, {id:21,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3192008999",origine:"LeBonCoin",secteur:"T4 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:4,surface:86,prix:315000,prixM2:3663,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.290142,lng:5.362429,distance:606,perim:true,est:false,new:false}, {id:22,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3207381756",origine:"LeBonCoin",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:55,prix:325000,prixM2:5909,dpe:"B",parking:null,terrasse:null,asc:true,lat:43.28324,lng:5.3598585,distance:622,perim:true,est:false,new:false}, {id:23,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3192398426",origine:"LeBonCoin",secteur:"T3 · Bompard",quartier:"Bompard",pieces:3,surface:65,prix:435000,prixM2:6692,dpe:"B",parking:true,terrasse:null,asc:null,lat:43.283714,lng:5.361457,distance:664,perim:true,est:false,new:false}, {id:24,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3206834383",origine:"LeBonCoin",secteur:"T3 · Endoume",quartier:"Endoume",pieces:3,surface:64,prix:335000,prixM2:5234,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.28679,lng:5.3640385,distance:694,perim:true,est:false,new:false}, {id:25,link:null,origine:"Sélection agence",secteur:"T3 · Roucas-Blanc",quartier:"Roucas-Blanc",pieces:3,surface:65,prix:350000,prixM2:5385,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.2828,lng:5.3505,distance:701,perim:true,est:true,new:false}, {id:26,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/268748983.htm",origine:"SeLoger",secteur:"T3 · Roucas-Blanc",quartier:"Roucas-Blanc",pieces:3,surface:68,prix:440000,prixM2:6471,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.2828,lng:5.3505,distance:701,perim:true,est:true,new:false}, {id:27,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/261820215.htm",origine:"SeLoger",secteur:"T5 · Roucas-Blanc",quartier:"Roucas-Blanc",pieces:5,surface:82,prix:430000,prixM2:5244,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.2828,lng:5.3505,distance:701,perim:true,est:true,new:false}, {id:28,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3181384830",origine:"LeBonCoin",secteur:"T3 · Saint-Lambert",quartier:"Saint-Lambert",pieces:3,surface:70,prix:325000,prixM2:4643,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.284836,lng:5.3634725,distance:723,perim:true,est:false,new:false}, {id:29,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3202185949",origine:"LeBonCoin",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:72.25,prix:435000,prixM2:6021,dpe:"B",parking:true,terrasse:null,asc:true,lat:43.29084,lng:5.36359,distance:725,perim:true,est:false,new:false}, {id:30,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3184104348",origine:"LeBonCoin",secteur:"T3 · Saint-Lambert",quartier:"Saint-Lambert",pieces:3,surface:56,prix:321000,prixM2:5732,dpe:"C",parking:true,terrasse:null,asc:null,lat:43.28876,lng:5.3647513,distance:747,perim:true,est:false,new:false}, {id:31,link:null,origine:"Sélection agence",secteur:"T3 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:3,surface:61,prix:275000,prixM2:4508,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.2918,lng:5.3632,distance:753,perim:true,est:true,new:false}, {id:32,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3181066061",origine:"LeBonCoin",secteur:"T4 · Saint-Lambert",quartier:"Saint-Lambert",pieces:4,surface:74,prix:210000,prixM2:2838,dpe:"N.R.",parking:null,terrasse:null,asc:true,lat:43.28543,lng:5.36454,distance:774,perim:true,est:false,new:false}, {id:33,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3208531012",origine:"LeBonCoin",secteur:"T3 · Saint-Lambert",quartier:"Saint-Lambert",pieces:3,surface:69.4,prix:350000,prixM2:5043,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.28664,lng:5.36525,distance:794,perim:true,est:false,new:false}, {id:34,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/257805925.htm",origine:"SeLoger",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:73,prix:415000,prixM2:5685,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.2895,lng:5.3652,distance:797,perim:true,est:true,new:false}, {id:35,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/259860477.htm",origine:"SeLoger",secteur:"T5 · Saint-Victor",quartier:"Saint-Victor",pieces:5,surface:80.1,prix:349000,prixM2:4357,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.2895,lng:5.3652,distance:797,perim:true,est:true,new:false}, {id:36,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3188268647",origine:"LeBonCoin",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:61,prix:76800,prixM2:1259,dpe:"B",parking:null,terrasse:null,asc:true,lat:43.29093,lng:5.3654113,distance:863,perim:true,est:false,new:false}, {id:37,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3209540257",origine:"LeBonCoin",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:80,prix:360000,prixM2:4500,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.28768,lng:5.366473,distance:880,perim:true,est:false,new:false}, {id:38,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3139926354",origine:"LeBonCoin",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:88,prix:399000,prixM2:4534,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.289654,lng:5.3664308,distance:898,perim:true,est:false,new:false}, {id:39,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3206508137",origine:"LeBonCoin",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:64,prix:260000,prixM2:4062,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.288685,lng:5.36684,distance:914,perim:true,est:false,new:false}, {id:40,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3203535088",origine:"LeBonCoin",secteur:"T3 · Saint-Lambert",quartier:"Saint-Lambert",pieces:3,surface:81,prix:449000,prixM2:5543,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.28564,lng:5.366541,distance:921,perim:true,est:false,new:false}, {id:41,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3187726361",origine:"LeBonCoin",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:85,prix:376000,prixM2:4424,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.28936,lng:5.3668594,distance:926,perim:true,est:false,new:false}, {id:42,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3202377075",origine:"LeBonCoin",secteur:"T5 · Saint-Victor",quartier:"Saint-Victor",pieces:5,surface:85,prix:369000,prixM2:4341,dpe:"E",parking:null,terrasse:null,asc:true,lat:43.290478,lng:5.3665504,distance:932,perim:true,est:false,new:false}, {id:43,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3196606721",origine:"LeBonCoin",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:79,prix:450000,prixM2:5696,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.281357,lng:5.3630385,distance:944,perim:true,est:false,new:false}, {id:44,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3181129486",origine:"LeBonCoin",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:70,prix:299000,prixM2:4271,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.28786,lng:5.3674207,distance:957,perim:true,est:false,new:false}];
-const pLabel=v=>v===true?"OUI":v===false?"NON":"à conf.";
+const BIENS=[{id:1,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3198911524",src:"Portail",secteur:"T4 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:4,surface:72.3,prix:409000,prixM2:5657,dpe:"C",parking:true,terrasse:null,asc:null,lat:43.2875,lng:5.3551,distance:60,est:false,new:false}, {id:2,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3210305859",src:"Portail",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:56.0,prix:308000,prixM2:5500,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.28683,lng:5.35609,distance:125,est:false,new:true}, {id:3,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3184085203",src:"Portail",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:88.0,prix:419000,prixM2:4761,dpe:"E",parking:null,terrasse:null,asc:true,lat:43.287865,lng:5.357589,distance:161,est:false,new:false}, {id:4,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3173039757",src:"Portail",secteur:"T3 · Saint-Lambert",quartier:"Saint-Lambert",pieces:3,surface:90.0,prix:429000,prixM2:4767,dpe:"B",parking:null,terrasse:null,asc:true,lat:43.288548,lng:5.357595,distance:177,est:false,new:false}, {id:5,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/232093519.htm",src:"Portail",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:75.6,prix:330000,prixM2:4365,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.2879,lng:5.358,distance:194,est:true,new:false}, {id:6,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/262719701.htm",src:"Portail",secteur:"T4 · 7e Arr",quartier:"7e Arr",pieces:4,surface:78.4,prix:349000,prixM2:4452,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.2879,lng:5.358,distance:194,est:true,new:false}, {id:7,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/269668459.htm",src:"Portail",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:68.6,prix:239000,prixM2:3484,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.2879,lng:5.358,distance:194,est:true,new:true}, {id:8,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3154661241",src:"Portail",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:58.0,prix:335000,prixM2:5776,dpe:"B",parking:null,terrasse:null,asc:null,lat:43.286728,lng:5.3577175,distance:215,est:false,new:true}, {id:9,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3155236592",src:"Portail",secteur:"T3 · Endoume",quartier:"Endoume",pieces:3,surface:72.0,prix:340000,prixM2:4722,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.286472,lng:5.3537,distance:221,est:false,new:false}, {id:10,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3193206036",src:"Portail",secteur:"T3 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:3,surface:90.0,prix:410000,prixM2:4556,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.290073,lng:5.3553786,distance:242,est:false,new:false}, {id:11,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/269437657.htm",src:"Portail",secteur:"T3 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:3,surface:63.5,prix:309000,prixM2:4866,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.2903,lng:5.3559,distance:268,est:true,new:false}, {id:12,link:"",src:"Réseau agence",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:60,prix:325000,prixM2:5417,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.288,lng:5.36,distance:356,est:true,new:false}, {id:13,link:"",src:"Réseau agence",secteur:"T3 · 7e Arr",quartier:"7e Arr",pieces:3,surface:75,prix:389000,prixM2:5187,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.288,lng:5.36,distance:356,est:true,new:false}, {id:14,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3146739765",src:"Portail",secteur:"T3 · Saint-Lambert",quartier:"Saint-Lambert",pieces:3,surface:57.0,prix:342000,prixM2:6000,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.290905,lng:5.3599887,distance:488,est:false,new:true}, {id:15,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/268256857.htm",src:"Portail",secteur:"T3 · Endoume",quartier:"Endoume",pieces:3,surface:65.0,prix:435000,prixM2:6692,dpe:"B",parking:null,terrasse:null,asc:null,lat:43.2855,lng:5.3505,distance:492,est:true,new:true}, {id:16,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3147811323",src:"Portail + Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:71.0,prix:389000,prixM2:5479,dpe:"B",parking:true,terrasse:null,asc:true,lat:43.29042,lng:5.361646,distance:564,est:false,new:false}, {id:17,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3175969638",src:"Portail + Portail",secteur:"T3 · Bompard",quartier:"Bompard",pieces:3,surface:74.0,prix:419600,prixM2:5670,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.283337,lng:5.359158,distance:583,est:false,new:false}, {id:18,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3204497282",src:"Portail + Portail",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:80.0,prix:369000,prixM2:4612,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.291103,lng:5.3614583,distance:593,est:false,new:false}, {id:19,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3177127399",src:"Portail + Portail",secteur:"T4 · Bompard",quartier:"Bompard",pieces:4,surface:79.0,prix:399000,prixM2:5051,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.283646,lng:5.3601284,distance:598,est:false,new:false}, {id:20,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3131433406",src:"Portail",secteur:"T3 · Roucas-Blanc",quartier:"Roucas-Blanc",pieces:3,surface:74.0,prix:366000,prixM2:4946,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.283504,lng:5.351211,distance:604,est:false,new:false}, {id:21,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3192008999",src:"Portail + Portail",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:86.0,prix:315000,prixM2:3663,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.29015,lng:5.3624578,distance:609,est:false,new:false}, {id:22,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3105493091",src:"Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:59.0,prix:300000,prixM2:5085,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.287743,lng:5.3631535,distance:612,est:false,new:true}, {id:23,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3206800074",src:"Portail",secteur:"T3 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:3,surface:57.0,prix:240000,prixM2:4211,dpe:"E",parking:null,terrasse:null,asc:null,lat:43.292667,lng:5.359829,distance:631,est:false,new:true}, {id:24,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3138361891",src:"Portail",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:81.0,prix:350000,prixM2:4321,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.287407,lng:5.3636947,distance:657,est:false,new:true}, {id:25,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3166829373",src:"Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:73.0,prix:316000,prixM2:4329,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.290665,lng:5.3629327,distance:668,est:false,new:true}, {id:26,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/261820215.htm",src:"Portail",secteur:"T5 · Roucas-Blanc",quartier:"Roucas-Blanc",pieces:5,surface:82.0,prix:430000,prixM2:5244,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.2828,lng:5.3505,distance:701,est:true,new:false}, {id:27,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/265131199.htm",src:"Portail",secteur:"T4 · Roucas-Blanc",quartier:"Roucas-Blanc",pieces:4,surface:93.0,prix:105000,prixM2:1129,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.2828,lng:5.3505,distance:701,est:true,new:true}, {id:28,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/268748983.htm",src:"Portail",secteur:"T3 · Roucas-Blanc",quartier:"Roucas-Blanc",pieces:3,surface:68.0,prix:440000,prixM2:6471,dpe:"E",parking:null,terrasse:null,asc:null,lat:43.2828,lng:5.3505,distance:701,est:true,new:false}, {id:29,link:"",src:"Réseau agence",secteur:"T3 · Roucas-Blanc",quartier:"Roucas-Blanc",pieces:3,surface:65,prix:350000,prixM2:5385,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.2828,lng:5.3505,distance:701,est:true,new:false}, {id:30,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3206834383",src:"Portail + Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:64.0,prix:335000,prixM2:5234,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.286716,lng:5.3641267,distance:703,est:false,new:false}, {id:31,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3181384830",src:"Portail + Portail",secteur:"T3 · Bompard",quartier:"Bompard",pieces:3,surface:70.0,prix:325000,prixM2:4643,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.284897,lng:5.363499,distance:721,est:false,new:false}, {id:32,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3202185949",src:"Portail",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:72.25,prix:435000,prixM2:6021,dpe:"B",parking:true,terrasse:null,asc:true,lat:43.29084,lng:5.36359,distance:725,est:false,new:false}, {id:33,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3184104348",src:"Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:56.0,prix:321000,prixM2:5732,dpe:"C",parking:true,terrasse:null,asc:null,lat:43.28875,lng:5.364744,distance:746,est:false,new:false}, {id:34,link:"",src:"Réseau agence",secteur:"T3 · Catalans-Pharo",quartier:"Catalans-Pharo",pieces:3,surface:61,prix:275000,prixM2:4508,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.2918,lng:5.3632,distance:753,est:true,new:false}, {id:35,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3181066061",src:"Portail",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:74.0,prix:210000,prixM2:2838,dpe:"N.R.",parking:null,terrasse:null,asc:true,lat:43.28543,lng:5.36454,distance:774,est:false,new:false}, {id:36,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/257805925.htm",src:"Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:73.0,prix:415000,prixM2:5685,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.2895,lng:5.3652,distance:797,est:true,new:false}, {id:37,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/259860477.htm",src:"Portail",secteur:"T5 · Saint-Victor",quartier:"Saint-Victor",pieces:5,surface:80.1,prix:349000,prixM2:4357,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.2895,lng:5.3652,distance:797,est:true,new:false}, {id:38,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/269551543.htm",src:"Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:85.0,prix:436800,prixM2:5139,dpe:"D",parking:null,terrasse:null,asc:null,lat:43.2895,lng:5.3652,distance:797,est:true,new:true}, {id:39,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/270458003.htm",src:"Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:55.0,prix:325000,prixM2:5909,dpe:"B",parking:null,terrasse:null,asc:null,lat:43.2895,lng:5.3652,distance:797,est:true,new:true}, {id:40,link:"https://www.seloger.com/annonces/achat/appartement/marseille-7eme-13/270959127.htm",src:"Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:66.0,prix:375000,prixM2:5682,dpe:"B",parking:null,terrasse:null,asc:null,lat:43.2895,lng:5.3652,distance:797,est:true,new:true}, {id:41,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3209882596",src:"Portail",secteur:"T5 · Bompard",quartier:"Bompard",pieces:5,surface:80.0,prix:395000,prixM2:4938,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.28159,lng:5.36057,distance:809,est:false,new:true}, {id:42,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3188268647",src:"Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:61.0,prix:76800,prixM2:1259,dpe:"B",parking:null,terrasse:null,asc:true,lat:43.29093,lng:5.3654113,distance:863,est:false,new:false}, {id:43,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3206709857",src:"Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:71.0,prix:289000,prixM2:4070,dpe:"C",parking:null,terrasse:null,asc:null,lat:43.29112,lng:5.365316,distance:864,est:false,new:true}, {id:44,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3209540257",src:"Portail + Portail",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:80.0,prix:360000,prixM2:4500,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.28768,lng:5.366473,distance:880,est:false,new:false}, {id:45,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3200811481",src:"Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:79.0,prix:204500,prixM2:2589,dpe:"E",parking:null,terrasse:null,asc:true,lat:43.287872,lng:5.3665285,distance:885,est:false,new:true}, {id:46,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3139926354",src:"Portail + Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:88.0,prix:399000,prixM2:4534,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.28972,lng:5.36646,distance:902,est:false,new:false}, {id:47,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3102102528",src:"Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:55.0,prix:210000,prixM2:3818,dpe:"D",parking:true,terrasse:null,asc:true,lat:43.29285,lng:5.3645344,distance:909,est:false,new:true}, {id:48,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3196591569",src:"Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:58.0,prix:224900,prixM2:3878,dpe:"B",parking:null,terrasse:null,asc:null,lat:43.287785,lng:5.366843,distance:910,est:false,new:true}, {id:49,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3206508137",src:"Portail",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:64.0,prix:260000,prixM2:4062,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.288685,lng:5.36684,distance:914,est:false,new:false}, {id:50,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3203535088",src:"Portail + Portail",secteur:"T3 · Saint-Victor",quartier:"Saint-Victor",pieces:3,surface:81.0,prix:449000,prixM2:5543,dpe:"C",parking:null,terrasse:null,asc:true,lat:43.285603,lng:5.3665185,distance:920,est:false,new:false}, {id:51,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3187726361",src:"Portail",secteur:"T4 · Saint-Victor",quartier:"Saint-Victor",pieces:4,surface:85.0,prix:376000,prixM2:4424,dpe:"N.R.",parking:null,terrasse:null,asc:null,lat:43.28936,lng:5.3668594,distance:926,est:false,new:false}, {id:52,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3202377075",src:"Portail + Portail",secteur:"T5 · Saint-Victor",quartier:"Saint-Victor",pieces:5,surface:85.0,prix:369000,prixM2:4341,dpe:"E",parking:null,terrasse:null,asc:true,lat:43.29048,lng:5.3665876,distance:934,est:false,new:false}, {id:53,link:"https://www.leboncoin.fr/ad/ventes_immobilieres/3196606721",src:"Portail + Portail",secteur:"T4 · Bompard",quartier:"Bompard",pieces:4,surface:79.0,prix:450000,prixM2:5696,dpe:"D",parking:null,terrasse:null,asc:true,lat:43.281357,lng:5.3630385,distance:944,est:false,new:false}];
+const pLabel=v=>v===true?"OUI":v===false?"NON":"À confirmer";
 const pClass=v=>v===true?"b-oui":v===false?"b-non":"b-nr";
 const pColor=v=>v===true?"#5CB85C":v===false?"#D9534F":"#9098a5";
-const isStar=b=>b.perim&&b.parking===true&&b.terrasse!==false&&b.prix>=330000&&b.prix<=420000;
+const isStar=b=>b.parking===true&&b.terrasse!==false&&b.prix>=330000&&b.prix<=420000;
 const fmtP=p=>p.toLocaleString('fr-FR')+" €";
 let sortKey="distance",sortDir=1,currentData=[];
+
 function getFiltered(){
-  const fp=document.getElementById('fParking').value,ft=document.getElementById('fTerrasse').value,
-    fo=document.getElementById('fOrigine').value,fty=document.getElementById('fType').value,
+  const fty=document.getElementById('fType').value,fsrc=document.getElementById('fSrc').value,
+    fp=document.getElementById('fParking').value,ft=document.getElementById('fTerrasse').value,
     px=+document.getElementById('fPrix').value;
   return BIENS.filter(b=>{
     if(fty&&String(b.pieces)!==fty)return false;
-    if(fo&&b.origine!==fo)return false;
+    if(fsrc&&b.src!==fsrc)return false;
     if(fp==="oui"&&b.parking!==true)return false;
-    if(fp==="non"&&b.parking===false)return false;
     if(ft==="oui"&&b.terrasse!==true)return false;
-    if(ft==="non"&&b.terrasse===false)return false;
     if(b.prix>px)return false;
     return true;
   }).sort((a,b)=>{
-    let va=a[sortKey],vb=b[sortKey];
     if(sortKey==="secteur")return a.secteur.localeCompare(b.secteur)*sortDir;
     if(sortKey==="parking"||sortKey==="terrasse"||sortKey==="asc"){const o={true:0,null:1,false:2};return (o[a[sortKey]]-o[b[sortKey]])*sortDir;}
-    if(va==null)va=sortKey==="distance"?999999:0;
-    if(vb==null)vb=sortKey==="distance"?999999:0;
+    let va=a[sortKey],vb=b[sortKey];
+    if(va==null)va=sortKey==="distance"?999999:0;if(vb==null)vb=sortKey==="distance"?999999:0;
     return (va-vb)*sortDir;
   });
 }
-function renderKPIs(){
-  const park=BIENS.filter(b=>b.parking===true).length;
-  const stars=BIENS.filter(isStar).length;
-  const prix=BIENS.map(b=>b.prix).filter(p=>p>150000).sort((a,b)=>a-b),med=prix[Math.floor(prix.length/2)];
-  document.getElementById('kpis').innerHTML=`
-    <div class="kpi"><div class="lbl">Biens sélectionnés</div><div class="val">${BIENS.length}</div><div class="sub">T3 / T4 / T5 · ≤ 1 000 m</div></div>
-    <div class="kpi"><div class="lbl">Avec parking</div><div class="val green">${park}</div><div class="sub">en propre (annonce)</div></div>
-    <div class="kpi"><div class="lbl">Biens ★ prioritaires</div><div class="val gold">${stars}</div><div class="sub">parking + terrasse + budget</div></div>
-    <div class="kpi"><div class="lbl">Prix médian</div><div class="val">${Math.round(med/1000)} K€</div><div class="sub">de la sélection</div></div>`;
+function renderSummary(){
+  const t3=BIENS.filter(b=>b.pieces===3).length,t4=BIENS.filter(b=>b.pieces===4).length,t5=BIENS.filter(b=>b.pieces===5).length;
+  const park=BIENS.filter(b=>b.parking===true).length,stars=BIENS.filter(isStar).length;
+  document.getElementById('summary').innerHTML=`
+    <div class="scard"><div class="v">${BIENS.length}</div><div class="l">Biens proposés</div></div>
+    <div class="scard"><div class="v">${t3} / ${t4} / ${t5}</div><div class="l">T3 / T4 / T5</div></div>
+    <div class="scard"><div class="v">${park}</div><div class="l">Avec parking</div></div>
+    <div class="scard gold"><div class="v">${stars} ★</div><div class="l">Coups de cœur</div></div>`;
 }
 function render(){
   const data=getFiltered();currentData=data;
-  document.getElementById('tbody').innerHTML=data.map(b=>`<tr class="${b.new?'isnew':''}">
-    <td><div class="secteur">${isStar(b)?'★ ':''}${b.new?'<span class="badge b-new">NOUVEAU</span> ':''}${b.secteur}</div><div class="sub2">${b.origine}${b.est?' · position indicative':''}</div></td>
-    <td>${b.surface} m²</td><td class="prix">${fmtP(b.prix)}</td><td>${b.prixM2.toLocaleString('fr-FR')}</td>
-    <td>${(b.est?'~':'')+b.distance+' m'}</td>
+  document.getElementById('tbody').innerHTML=data.map(b=>`<tr>
+    <td><div class="secteur">${isStar(b)?'<span class="star">★</span> ':''}${b.quartier}</div><div class="sub2">${b.est?'position approx.':'Marseille 7ᵉ'}</div></td>
+    <td>T${b.pieces}</td><td>${b.surface} m²</td><td class="prix">${fmtP(b.prix)}</td><td>${b.prixM2.toLocaleString('fr-FR')}</td>
+    <td>${(b.est?'~':'')+b.distance} m</td>
     <td><span class="badge ${pClass(b.parking)}">${pLabel(b.parking)}</span></td>
     <td><span class="badge ${pClass(b.terrasse)}">${pLabel(b.terrasse)}</span></td>
     <td><span class="badge ${pClass(b.asc)}">${pLabel(b.asc)}</span></td>
     <td>${b.dpe}</td>
-    <td>${b.link?`<a class="lien" href="${b.link}" target="_blank" rel="noopener">Voir l'annonce ↗</a>`:`<span class="nous">Nous consulter</span>`}</td></tr>`).join('');
+    <td>${b.link?`<a class="lien" href="${b.link}" target="_blank" rel="noopener">Voir l'annonce ↗</a>`:'<span class="nous">Nous consulter</span>'}</td></tr>`).join('');
   document.getElementById('tableCount').textContent=data.length+" bien"+(data.length>1?"s":"");
   renderMap();
 }
 const TILE=256;let mapView={lat:CERCLE.lat,lng:CERCLE.lng,z:14};
-function project(lat,lng,z){const s=Math.sin(lat*Math.PI/180);const x=(lng+180)/360*Math.pow(2,z);const y=(0.5-Math.log((1+s)/(1-s))/(4*Math.PI))*Math.pow(2,z);return {x:x*TILE,y:y*TILE};}
-function metersPerPixel(lat,z){return 156543.03392*Math.cos(lat*Math.PI/180)/Math.pow(2,z);}
+function project(lat,lng,z){const s=Math.sin(lat*Math.PI/180);return {x:(lng+180)/360*Math.pow(2,z)*TILE,y:(0.5-Math.log((1+s)/(1-s))/(4*Math.PI))*Math.pow(2,z)*TILE};}
+function mpp(lat,z){return 156543.03392*Math.cos(lat*Math.PI/180)/Math.pow(2,z);}
 function renderMap(){
   const map=document.getElementById('map');if(!map)return;
-  const W=map.clientWidth||456,H=map.clientHeight||520,z=mapView.z,n=Math.pow(2,z);
-  const c=project(mapView.lat,mapView.lng,z),originX=c.x-W/2,originY=c.y-H/2;
-  let html='';
-  const x0=Math.floor(originX/TILE),x1=Math.floor((originX+W)/TILE);
-  const y0=Math.floor(originY/TILE),y1=Math.floor((originY+H)/TILE);
-  for(let tx=x0;tx<=x1;tx++)for(let ty=y0;ty<=y1;ty++){
-    if(ty<0||ty>=n)continue;
-    const wx=((tx%n)+n)%n,sub="abc"[((tx%3)+3)%3];
-    const px=tx*TILE-originX,py=ty*TILE-originY;
-    html+=`<img class="tile" src="https://${sub}.tile.openstreetmap.org/${z}/${wx}/${ty}.png" style="left:${px}px;top:${py}px" onerror="this.style.display='none'" draggable="false">`;
-  }
+  const W=map.clientWidth||440,H=map.clientHeight||560,z=mapView.z,n=Math.pow(2,z);
+  const c=project(mapView.lat,mapView.lng,z),oX=c.x-W/2,oY=c.y-H/2;let html='';
+  const x0=Math.floor(oX/TILE),x1=Math.floor((oX+W)/TILE),y0=Math.floor(oY/TILE),y1=Math.floor((oY+H)/TILE);
+  for(let tx=x0;tx<=x1;tx++)for(let ty=y0;ty<=y1;ty++){if(ty<0||ty>=n)continue;const wx=((tx%n)+n)%n,sub="abc"[((tx%3)+3)%3];
+    html+=`<img class="tile" src="https://${sub}.tile.openstreetmap.org/${z}/${wx}/${ty}.png" style="left:${tx*TILE-oX}px;top:${ty*TILE-oY}px" onerror="this.style.display='none'" draggable="false">`;}
   map.innerHTML=html;
-  const cc=project(CERCLE.lat,CERCLE.lng,z),ccx=cc.x-originX,ccy=cc.y-originY;
-  const rpx=1000/metersPerPixel(CERCLE.lat,z);
-  const circ=document.createElement('div');circ.className='circle1k';
-  circ.style.cssText=`left:${ccx-rpx}px;top:${ccy-rpx}px;width:${rpx*2}px;height:${rpx*2}px`;
-  map.appendChild(circ);
-  currentData.forEach(b=>{
-    if(b.lat==null)return;
-    const p=project(b.lat,b.lng,z),mx=p.x-originX,my=p.y-originY;
-    if(mx<-40||mx>W+40||my<-40||my>H+40)return;
-    const el=document.createElement(b.link?'a':'div');
-    if(b.link){el.href=b.link;el.target='_blank';el.rel='noopener';}
-    el.className='mk'+(isStar(b)?' mkstar':'')+(b.est?' mkest':'');
-    el.style.cssText=`left:${mx}px;top:${my}px;background:${pColor(b.parking)}`;
-    el.title=`${b.secteur} · ${b.surface} m² · ${fmtP(b.prix)} · Parking ${pLabel(b.parking)} · Terrasse ${pLabel(b.terrasse)} · ${b.est?'~':''}${b.distance} m`;
-    el.innerHTML=isStar(b)?'★':'';
-    map.appendChild(el);
-  });
-  const star=document.createElement('div');star.className='cerclemk';
-  star.style.cssText=`left:${ccx}px;top:${ccy}px`;star.title='Cercle des Nageurs';star.textContent='★';
-  map.appendChild(star);
+  const cc=project(CERCLE.lat,CERCLE.lng,z),ccx=cc.x-oX,ccy=cc.y-oY,rpx=1000/mpp(CERCLE.lat,z);
+  const circ=document.createElement('div');circ.className='circle1k';circ.style.cssText=`left:${ccx-rpx}px;top:${ccy-rpx}px;width:${rpx*2}px;height:${rpx*2}px`;map.appendChild(circ);
+  currentData.forEach(b=>{if(b.lat==null)return;const p=project(b.lat,b.lng,z),mx=p.x-oX,my=p.y-oY;if(mx<-40||mx>W+40||my<-40||my>H+40)return;
+    const el=document.createElement(b.link?'a':'div');if(b.link){el.href=b.link;el.target='_blank';el.rel='noopener';}
+    el.className='mk'+(isStar(b)?' mkstar':'')+(b.est?' mkest':'');el.style.cssText=`left:${mx}px;top:${my}px;background:${pColor(b.parking)}`;
+    el.title=`${b.quartier} · T${b.pieces} · ${b.surface} m² · ${fmtP(b.prix)} · Parking ${pLabel(b.parking)} · Terrasse ${pLabel(b.terrasse)} · ${b.est?'~':''}${b.distance} m`;
+    el.innerHTML=isStar(b)?'★':'';map.appendChild(el);});
+  const star=document.createElement('div');star.className='cerclemk';star.style.cssText=`left:${ccx}px;top:${ccy}px`;star.textContent='★';star.title='Cercle des Nageurs';map.appendChild(star);
 }
-(function initMap(){
-  const map=document.getElementById('map');let drag=null;
+(function initMap(){const map=document.getElementById('map');let drag=null;
   map.addEventListener('mousedown',e=>{drag={x:e.clientX,y:e.clientY,lat:mapView.lat,lng:mapView.lng,moved:false};map.style.cursor='grabbing';});
-  window.addEventListener('mousemove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>3)drag.moved=true;const m=metersPerPixel(drag.lat,mapView.z);mapView.lng=drag.lng-dx*m/(111320*Math.cos(drag.lat*Math.PI/180));mapView.lat=drag.lat+dy*m/110540;renderMap();});
+  window.addEventListener('mousemove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>3)drag.moved=true;
+    const m=mpp(drag.lat,mapView.z);mapView.lng=drag.lng-dx*m/(111320*Math.cos(drag.lat*Math.PI/180));mapView.lat=drag.lat+dy*m/110540;renderMap();});
   window.addEventListener('mouseup',()=>{if(drag){map.style.cursor='grab';drag=null;}});
   map.addEventListener('click',e=>{if(drag&&drag.moved)e.preventDefault();},true);
   map.addEventListener('wheel',e=>{e.preventDefault();mapView.z=Math.max(11,Math.min(18,mapView.z+(e.deltaY<0?1:-1)));renderMap();},{passive:false});
-  document.getElementById('zin').addEventListener('click',()=>{mapView.z=Math.min(18,mapView.z+1);renderMap();});
-  document.getElementById('zout').addEventListener('click',()=>{mapView.z=Math.max(11,mapView.z-1);renderMap();});
-  document.getElementById('zfit').addEventListener('click',()=>{mapView={lat:CERCLE.lat,lng:CERCLE.lng,z:14};renderMap();});
+  document.getElementById('zin').onclick=()=>{mapView.z=Math.min(18,mapView.z+1);renderMap();};
+  document.getElementById('zout').onclick=()=>{mapView.z=Math.max(11,mapView.z-1);renderMap();};
+  document.getElementById('zfit').onclick=()=>{mapView={lat:CERCLE.lat,lng:CERCLE.lng,z:14};renderMap();};
   let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(renderMap,150);});
 })();
-function initOrigines(){[...new Set(BIENS.map(b=>b.origine))].sort().forEach(q=>{const o=document.createElement('option');o.value=q;o.textContent=q;document.getElementById('fOrigine').appendChild(o);});}
+function initSrc(){[...new Set(BIENS.map(b=>b.src))].sort().forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;document.getElementById('fSrc').appendChild(o);});}
 document.querySelectorAll('th[data-k]').forEach(th=>th.addEventListener('click',()=>{const k=th.dataset.k;if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1;}render();}));
-['fType','fOrigine','fParking','fTerrasse','fPrix'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{document.getElementById('prixVal').textContent=(+document.getElementById('fPrix').value).toLocaleString('fr-FR')+" €";render();}));
-document.getElementById('reset').addEventListener('click',()=>{document.getElementById('fType').value="";document.getElementById('fOrigine').value="";document.getElementById('fParking').value="";document.getElementById('fTerrasse').value="";document.getElementById('fPrix').value=450000;document.getElementById('prixVal').textContent="450 000 €";sortKey="distance";sortDir=1;render();});
-initOrigines();renderKPIs();render();
+['fType','fSrc','fParking','fTerrasse','fPrix'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{document.getElementById('prixVal').textContent=(+document.getElementById('fPrix').value).toLocaleString('fr-FR')+" €";render();}));
+document.getElementById('reset').addEventListener('click',()=>{document.getElementById('fType').value="";document.getElementById('fSrc').value="";document.getElementById('fParking').value="";document.getElementById('fTerrasse').value="";document.getElementById('fPrix').value=450000;document.getElementById('prixVal').textContent="450 000 €";sortKey="distance";sortDir=1;render();});
+initSrc();renderSummary();render();
 </script>
 </body>
 </html>
