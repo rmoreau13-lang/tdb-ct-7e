@@ -6,16 +6,16 @@ pour Madame TARDIEU.
 
 ## Critères de recherche
 
-- Type : T3, T4 ou T5 (~ 55–95 m²)
+- Type : T3, T4 ou T5 (70–95 m², minimum 70 m²)
 - Localisation : ≤ 1 000 m du Cercle des Nageurs (Marseille 7e)
 - Préférences : terrasse et parking en propre
-- Budget : jusqu'à ~ 450 K€
+- Budget : jusqu'à 430 K€
 
 ## Mise à jour
 
-Sélection mise à jour le **9 juin 2026** — 64 biens (45 T3 / 16 T4 / 3 T5),
-7 avec parking confirmé, **3 ★ conformes** (parking + terrasse + budget 330-420 K€) :
-T4 Catalans-Pharo 72 m² 409 K€, T3 Catalans-Pharo 57 m² 342 K€, T3 Catalans-Pharo 71 m² 389 K€.
+Sélection mise à jour le **10 juin 2026 (14 h)** — critères resserrés ce jour
+(minimum 70 m², budget ≤ 430 K€) : **44 biens** (27 T3 / 14 T4 / 3 T5),
+2 avec parking confirmé, 3 nouveautés depuis le relevé du matin.
 Le titre de chaque bien renvoie directement vers l'annonce (LeBonCoin / SeLoger).
 
 ## Page
