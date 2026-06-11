@@ -13,9 +13,9 @@ pour Madame TARDIEU.
 
 ## Mise à jour
 
-Sélection mise à jour le **10 juin 2026 (14 h)** — critères resserrés ce jour
-(minimum 70 m², budget ≤ 430 K€) : **44 biens** (27 T3 / 14 T4 / 3 T5),
-2 avec parking confirmé, 3 nouveautés depuis le relevé du matin.
+Sélection mise à jour le **11 juin 2026 (10 h)** : **45 biens** (28 T3 / 14 T4 / 3 T5),
+2 avec parking confirmé, 1 nouveauté (T3 Saint-Victor · 70 m² · 360 K€ · DPE B · dernier étage),
+terrasse confirmée sur le T3 Saint-Victor 79 m² · 204,5 K€.
 Le titre de chaque bien renvoie directement vers l'annonce (LeBonCoin / SeLoger).
 
 ## Page
