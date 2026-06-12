@@ -13,9 +13,10 @@ pour Madame TARDIEU.
 
 ## Mise à jour
 
-Sélection mise à jour le **11 juin 2026 (10 h)** : **45 biens** (28 T3 / 14 T4 / 3 T5),
-2 avec parking confirmé, 1 nouveauté (T3 Saint-Victor · 70 m² · 360 K€ · DPE B · dernier étage),
-terrasse confirmée sur le T3 Saint-Victor 79 m² · 204,5 K€.
+Sélection mise à jour le **12 juin 2026 (8 h 50)** : **42 biens** (25 T3 / 14 T4 / 3 T5),
+2 avec parking confirmé, 0 nouveauté ; 2 annonces retirées de LeBonCoin,
+1 bien sorti du périmètre (position précisée ≈ 1 200 m), 1 baisse de prix
+(T3 88 m² Catalans-Pharo : 290 → 285 K€).
 Le titre de chaque bien renvoie directement vers l'annonce (LeBonCoin / SeLoger).
 
 ## Page
